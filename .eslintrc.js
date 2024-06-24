@@ -3,13 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'airbnb',
-    'next/core-web-vitals',
-  ],
+  extends: ['next/core-web-vitals'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,

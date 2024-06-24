@@ -13,18 +13,18 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    indent: ['error', 2, { SwitchCase: 1 }], // 2 пробела для всех блоков кода, включая switch case
-    'react/jsx-indent': ['error', 2], // 2 пробела для JSX
-    'react/jsx-indent-props': ['error', 2], // 2 пробела для отступов пропсов в JSX
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'react/jsx-indent': ['error', 2],
+    'react/jsx-indent-props': ['error', 2],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
-    'react/react-in-jsx-scope': 'off', // Next.js автоматически импортирует React
-    'react/prop-types': 'off', // Отключить проверку prop-types, если используете TypeScript
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
   },
   settings: {
     react: {
-      version: 'detect', // Автоматическое определение версии React
+      version: 'detect',
     },
   },
 };

@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+  --font-family-main: 'Roboto', 'Times New Roman', serif;
+
+  --font-size-s: 8px;
+  --font-size-m: 10px;
+  --font-size-l: 12px;
+
+  --font-line-s: 16px;
+  --font-line-m: 24px;
+  --font-line-l: 32px;
+
+  --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+  --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+  --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+  --ui-height-s: 20px;
+  --ui-height-m: 28px;
+  --ui-height-l: 36px;
+
+  --navbar-height: 40px;
+  --sidebar-width: 170px;
+  --sidebar-width-collapsed: 60px;
+  --modal-z-index: 10;
+  --overlay-color: rgba(24, 24, 25, 0.394);
+  --light-red: rgb(235 9 9);
+  --dark-red: rgb(161 9 9);
+
+  --bg-color: #ffffff;
+  --inverted-bg-color: #000000;
+  
+  --primary-color: #1f87ef;
+  --primary-color-tinted:#196dc1;
+  --inverted-primary-color: #ffffff;
+  
+  --secondary-color: #272727;
+  --inverted-secondary-color: #dee0e4;
+}

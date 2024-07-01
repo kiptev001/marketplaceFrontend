@@ -1,0 +1,20 @@
+.AppLink {
+  color: var(--secondary-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.primary {
+  color: var(--inverted-primary-color);
+}
+
+.secondary {
+  color: var(--inverted-secondary-color);
+}
+
+.red {
+  color: red;
+}

@@ -1,0 +1,28 @@
+.Text {
+  border-radius: 5px;
+  border: none;
+  background: var(--inverted-primary-color);
+  padding: 5px;
+
+  .title {
+    font: var(--font-l);
+    color: var(--primary-color);
+  }
+
+  .text {
+    font: var(--font-m);
+    color: var(--secondary-color);
+  }
+}
+
+.error {
+  .title {
+    font: var(--font-l);
+    color: var(--dark-red);
+  }
+
+  .text {
+    font: var(--font-m);
+    color: var(--light-red);
+  }
+}

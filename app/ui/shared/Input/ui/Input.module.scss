@@ -1,0 +1,39 @@
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.placeholder {
+  margin-right: 4px;
+}
+
+.input {
+  border: none;
+  background: transparent;
+}
+
+.small {
+  height: var(--ui-height-s);
+  font-size: var(--font-size-s);
+  padding: 0 3px;
+}
+
+.medium {
+  height: var(--ui-height-m);
+  font-size: var(--font-size-m);
+  padding: 0 3px;
+}
+
+.large {
+  height: var(--ui-height-l);
+  font-size:  var(--font-size-l);
+  padding: 0 3px;
+}
+
+.clear {
+  outline: none;
+}
+
+.outlined {
+  border: solid 1px var(--primary-color);
+}

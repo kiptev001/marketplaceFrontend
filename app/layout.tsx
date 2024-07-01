@@ -1,17 +1,6 @@
-import './ui/global.css';
-import { inter } from '@/app/ui/fonts/fonts';
-
-import { Metadata } from 'next';
- 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Acme',
-    default: 'Acme Dashboard',
-  },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
-};
-
+import './global.css';
+import { Navbar } from '@/app/ui/widgets/Navbar';
+import { SearchBar } from '@/app//ui/widgets/SearchBar';
 
 export default function RootLayout({
   children,
@@ -21,7 +10,11 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body>
+        <Navbar/>
+        <SearchBar/>
+        {children}
+      </body>
     </html>
   );
 }

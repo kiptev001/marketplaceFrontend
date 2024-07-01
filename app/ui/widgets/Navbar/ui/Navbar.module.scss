@@ -1,0 +1,12 @@
+.navbar {
+  background-color: var(--secondary-color);
+  color: var(--inverted-secondary-color);
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 0 150px;
+}

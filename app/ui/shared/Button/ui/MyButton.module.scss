@@ -12,14 +12,14 @@
 
   &:hover {
     background-color: var(--primary-color-tinted);
-    border-radius: 7px;
+    border-radius: 3px;
   }
 }
 
 .outline {
   margin: 0;
   border: solid 2px var(--inverted-primary-color);
-  border-radius: 5px;
+  border-radius: 3px;
   background: none;
 }
 
@@ -28,7 +28,7 @@
   border: none;
   background-color: var(--primary-color);
   color: var(--inverted-primary-color);
-  border-radius: 7px;
+  border-radius: 3px;
   
   &:hover {
     background-color: var(--primary-color-tinted);

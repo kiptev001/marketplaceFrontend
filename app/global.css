@@ -36,10 +36,10 @@
   --bg-color: #ffffff;
   --inverted-bg-color: #000000;
   
-  --primary-color: #1f87ef;
+  --primary-color: rgb(0,153,247);
   --primary-color-tinted:#196dc1;
   --inverted-primary-color: #ffffff;
   
-  --secondary-color: #272727;
+  --secondary-color: #292929;
   --inverted-secondary-color: #dee0e4;
 }

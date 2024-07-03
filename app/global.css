@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+.app {
+  padding: 0 114px;
+}
+
 :root {
   --font-family-main: 'Roboto', 'Times New Roman', serif;
 

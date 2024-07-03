@@ -1,0 +1,14 @@
+.adCard {
+    width: 208px;
+    margin: 0 10px 25px 0;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+
+        .addToFavorites {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

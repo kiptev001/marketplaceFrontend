@@ -18,6 +18,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '80.img.avito.st',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   sassOptions: {

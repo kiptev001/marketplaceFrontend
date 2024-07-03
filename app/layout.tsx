@@ -13,7 +13,9 @@ export default function RootLayout({
       <body>
         <Navbar/>
         <SearchBar/>
-        {children}
+        <div className='app'>
+          {children}
+        </div>
       </body>
     </html>
   );

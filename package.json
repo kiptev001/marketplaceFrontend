@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.21",
     "@types/node": "20.5.7",
     "@vercel/postgres": "^0.5.1",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",
     "next": "15.0.0-canary.28",
@@ -25,12 +26,14 @@
     "sass": "^1.77.6",
     "typescript": "5.2.2",
     "use-debounce": "^10.0.1",
+    "uuid": "^10.0.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.14",
+    "@types/uuid": "^10.0.0",
     "@vercel/style-guide": "^5.0.1",
     "dotenv": "^16.3.1",
     "eslint": "^8.52.0",

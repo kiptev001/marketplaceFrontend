@@ -31,7 +31,7 @@ function Navbar({ className }: NavbarProps) {
       <AppLink href="/">
         <ShoppingCart/>
       </AppLink>
-      <AppLink href="/">Вход и регистрация</AppLink>
+      <AppLink href="/registration">Вход и регистрация</AppLink>
       <AppLink href="/">Разместить объявление</AppLink>
     </div>
   );

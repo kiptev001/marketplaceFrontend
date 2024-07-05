@@ -1,7 +1,9 @@
-import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
+import UserModel from '../../models/userModel';
+import MailService from '../../services/mailService';
+import UserService from '../../services/userService';
 
 interface DatabaseError extends Error {
   code?: string;
@@ -10,17 +12,9 @@ interface DatabaseError extends Error {
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
+    const {accessToken,refreshToken,user} = await UserService.registration(email,password);
 
-    const hashedPassword = await bcrypt.hash(password, 3);
-    const activationLink = uuid();
-
-    const result = await sql`
-      INSERT INTO users (email, password, activationLink)
-      VALUES (${email}, ${hashedPassword}, ${activationLink})
-      RETURNING *;
-    `;
-
-    return NextResponse.json({ user: result.rows[0] }, { status: 201 });
+    return NextResponse.json({ user }, { status: 201 });
   } catch (error) {
     const dbError = error as DatabaseError;
 

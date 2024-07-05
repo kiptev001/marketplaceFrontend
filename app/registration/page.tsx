@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Input } from '../ui/shared/Input';
 import { Button } from '../ui/shared/Button';
 import axios, { AxiosError } from 'axios';
+import MailService from '../api/services/mailService';
 
 const createUser = async (email:string, password:string) => {
   try {

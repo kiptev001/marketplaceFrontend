@@ -19,7 +19,7 @@ export async function GET(request: Request) {
     `;
 
     if (result.rowCount === 0) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+      return NextResponse.json({ error: 'User not found' });
     }
 
     return NextResponse.json({ user: result.rows[0] }, { status: 200 });

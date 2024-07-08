@@ -1,5 +1,6 @@
 import styles from './AdsList.module.scss';
 import { AdCard } from '@/app/ui/entities/Ad/ui/AdCard/index';
+import api from '@/app/src/http';
 
 const ads = [
   {userId: 1,
@@ -36,7 +37,9 @@ const ads = [
   }
 ];
 
-export default function AdsList(){
+export default async function AdsList(){
+  const response = await api.get('/users/getUser?email=reactcrwk1@gmail.com');
+  console.log(response);
   return (
     <div className={styles.wrapper}>
       <div>Рекомендации для вас</div>

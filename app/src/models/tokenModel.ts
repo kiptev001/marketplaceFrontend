@@ -37,13 +37,14 @@ class TokenModel {
   }
 
   async saveToken(userId:number, refreshToken:string){
-    const result = await sql`UPDATE tokens SET token = ${refreshToken} WHERE userId = ${userId} RETURNING *;`;
+    const result = await sql`UPDATE tokens SET refreshtoken = ${refreshToken} WHERE userId = ${userId} RETURNING *;`;
 
     return {refreshToken: result.rows[0], status: 200};
   }
 
   async deleteOne(refreshToken:string){
     const result = await sql`DELETE FROM tokens WHERE refreshToken = ${refreshToken};`;
+    return result;
   }
 }
 

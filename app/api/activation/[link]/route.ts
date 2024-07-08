@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import UserModel from '../../models/userModel';
+import UserModel from '../../../src/models/userModel';
 import { NextApiRequest, NextApiResponse } from 'next/types';
-import { ApiError } from '../../services/apiError';
+import { ApiError } from '../../../src/services/apiError';
 
 interface DatabaseError extends Error {
   code?: string;

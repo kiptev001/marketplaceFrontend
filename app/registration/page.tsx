@@ -2,16 +2,16 @@
 import React, { useState } from 'react';
 import { Input } from '../ui/shared/Input';
 import { Button } from '../ui/shared/Button';
-import axios, { AxiosError } from 'axios';
-import MailService from '../api/services/mailService';
+import axios from 'axios';
+import api from '../src/http/index';
 
 const createUser = async (email:string, password:string) => {
   try {
-    const response = await axios.post('/api/users/createUser', {
+    const response = await api.post('/users/registration', {
       email,
       password
     });
-    console.log('User created:', response.data);
+    localStorage.setItem('token', response.data.accessToken);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Error creating user:', error.response?.data || error.message);

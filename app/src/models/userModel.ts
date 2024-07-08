@@ -14,6 +14,18 @@ class UserModel {
     return { user: result.rows[0], status: 200 };
   }
 
+  async findById(email:string){
+    const result = await sql`
+      SELECT * FROM users WHERE email = ${email};
+    `;
+
+    if (result.rowCount === 0) {
+      return { error: 'User not found', status: 404 };
+    }
+
+    return { user: result.rows[0], status: 200 };
+  }
+
   async create(email:string, password:string, activationLink:string){
     const result = await sql`
       INSERT INTO users (email, password, activationLink)
@@ -33,6 +45,11 @@ class UserModel {
     }
     const result2 = await sql`UPDATE users SET isActivated = TRUE WHERE activationLink = ${activationLink};`;
     return {status: 200};
+  }
+
+  async findAll(){
+    const result = await sql`SELECT * FROM users;`;
+    return result.rows;
   }
 }
 

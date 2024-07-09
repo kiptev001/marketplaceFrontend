@@ -1,11 +1,18 @@
-import jwt from 'jsonwebtoken';
 import TokenModel from '../../src/models/tokenModel';
+import * as jose from 'jose';
 
 class TokenService {
-  generateTokens(payload) {
-    console.log('PAYLOAD IN GENERATE TOKENS',payload);
-    const accessToken = jwt.sign(payload, 'ACCESS SECRET', { expiresIn: '30m' });
-    const refreshToken = jwt.sign(payload, 'REFRESH SECRET', { expiresIn: '30d' });
+  async generateTokens(payload:Record<string,unknown> ) {
+    const accessToken = await new jose.SignJWT(payload)
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('30m')
+      .sign(new TextEncoder().encode(process.env.JWT_ACCESS_SECRET));
+
+    const refreshToken = await new jose.SignJWT(payload)
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('30d')
+      .sign(new TextEncoder().encode(process.env.JWT_REFRESH_SECRET));
+
     return {
       accessToken,
       refreshToken,
@@ -31,46 +38,33 @@ class TokenService {
     return tokenData;
   }
 
-  // validateAccessToken(accessToken:string) {
-  //   try {
-  //     const decodedToken = jwt.decode(accessToken);
-  //     console.log('DecodedToken:', decodedToken);
-  //     const userData = jwt.verify(accessToken, 'ACCESS SECRET');
-  //     return userData;
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
 
-  // validateRefreshToken(refreshToken:string) {
-  //   try {
-  //     const userData = jwt.verify(refreshToken, 'REFRESH SECRET');
-  //     return userData;
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
-  validateAccessToken(accessToken: string) {
+  async validateAccessToken(accessToken:string) {
     try {
-      const decodedToken = jwt.decode(accessToken);
-      console.log('DecodedToken:', decodedToken);
-      const userData = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
-      return userData;
+      const { payload } = await jose.jwtVerify(
+        accessToken,
+        new TextEncoder().encode(process.env.JWT_ACCESS_SECRET)
+      );
+      return payload;
     } catch (error) {
       console.error('Token validation error:', error);
       return null;
     }
   }
 
-  validateRefreshToken(refreshToken: string) {
+  async validateRefreshToken(refreshToken:string) {
     try {
-      const userData = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-      return userData;
+      const { payload } = await jose.jwtVerify(
+        refreshToken,
+        new TextEncoder().encode(process.env.JWT_REFRESH_SECRET)
+      );
+      return payload;
     } catch (error) {
       console.error('Token validation error:', error);
       return null;
     }
   }
+
 }
 
 const service = new TokenService();

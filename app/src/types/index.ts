@@ -9,3 +9,20 @@ export interface IUser {
     isActivated: boolean;
     id: string;
 }
+
+export interface IAd {
+  id: number;
+  title: string;
+  price?: number;
+  createdAt: Date;
+  location?: string;
+  description?: string;
+  images?: string[];
+  userId: number;
+}
+
+export interface IDBResponse<T> {
+    data?: T | Array<T>;
+    status?: number;
+    error?: string;
+}

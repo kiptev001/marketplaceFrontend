@@ -25,10 +25,6 @@ export async function POST(request:NextRequest ) {
   } catch (error) {
     const dbError = error as DatabaseError;
 
-    if (dbError.code === '23505') {
-      return NextResponse.json({ error: 'Email already exists' }, { status: 409 });
-    }
-
     return NextResponse.json({ error: dbError.message }, { status: 500 });
   }
 }

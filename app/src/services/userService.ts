@@ -19,14 +19,14 @@ class UserService {
 
     await MailService.sendActivationMail(email,activationLink);
 
-    const tokens = tokenService.generateTokens({ ...user });
+    const tokens = await tokenService.generateTokens({ ...user });
     await tokenService.saveToken(user.id, tokens.refreshToken);
 
     const userDto = {
       id: user.id,
       email: user.email,
-      isactivated: user.isActivated,
-      activationlink: user.activationLink
+      isactivated: user.isactivated,
+      activationlink: user.activationlink
     };
 
     return { ...tokens, user:userDto };
@@ -46,11 +46,12 @@ class UserService {
     const userDto = {
       id: user.id,
       email: user.email,
-      isactivated: user.isActivated,
-      activationlink: user.activationLink
+      isactivated: user.isactivated,
+      activationlink: user.activationlink
     };
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokens = await tokenService.generateTokens({ ...userDto });
+
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return { ...tokens, user: userDto };
@@ -66,7 +67,7 @@ class UserService {
       return ApiError.UnauthorizedError();
     }
 
-    const userData = tokenService.validateRefreshToken(refreshToken);
+    const userData = await tokenService.validateRefreshToken(refreshToken);
 
     const tokenFromDb = await tokenService.findToken(refreshToken);
 
@@ -74,11 +75,11 @@ class UserService {
       return ApiError.UnauthorizedError();
     }
 
-    const {user:userDataFromDb, status, error} = await UserModel.findById(userData.id);
+    const {user:userDataFromDb } = await UserModel.findById(userData.id);
 
     const { password, ...userDto } = userDataFromDb;
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokens = await tokenService.generateTokens({ ...userDto });
     
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 

@@ -1,9 +1,9 @@
 import { sql } from '@vercel/postgres';
-import { IAd, IDBResponse } from '../types';
+import { IAd, IDBResponse, ISQLResponse } from '../types';
 
 class AdModel {
-  async findOneById(id:number):Promise<IAd>{
-    const result = await sql`
+  async findOneById(id:number):Promise<IDBResponse<IAd>>{
+    const result = await sql<IAd>`
       SELECT * FROM ads WHERE id = ${id};
     `;
 
@@ -11,7 +11,19 @@ class AdModel {
       return { error: 'Ad not found' };
     }
 
-    return { ad: result.rows[0] ,status: 200 };
+    return { data: result.rows[0] ,status: 200 };
+  }
+
+  async findMany(limit: number): Promise<IDBResponse<IAd[]>> {
+    const result = await sql<IAd>`
+    SELECT * FROM ads LIMIT ${limit};
+  `;
+
+    if (result.rowCount === 0) {
+      return { error: 'No ads found' };
+    }
+
+    return { data: result.rows, status: 200 };
   }
 
   async create(ad:IAd):Promise<IDBResponse<IAd>>{

@@ -1,42 +1,30 @@
+'use client';
 import styles from './AdsList.module.scss';
 import { AdCard } from '@/app/ui/entities/Ad/ui/AdCard/index';
+import api from '@/app/src/http/index';
+import { useEffect, useState } from 'react';
+import { Ad } from '@/app/ui/entities/Ad/types';
 
-const ads = [
-  {userId: 1,
-    title: 'Крссовки женские',
-    price: 2000,
-    location: 'Patong',
-    publicationDate: '20 июня 23:01',
-    description: 'Мужские сандалии Adidas Производство - Вьетнам Качество Премиальное Размер с 41- 45',
-    imagesUrls: ['https://80.img.avito.st/image/1/1.Sb4Zz7a45VcvZidSB7Zr93ht51Gnbmdfb2vnValm7V2v.D0Xun0kf5vqburg0LAEV1I8RY0Au8iep-ZIzYK8VgC8']
-  },
-  {userId: 1,
-    title: 'Крссовки женские',
-    price: 2000,
-    location: 'Patong',
-    publicationDate: '20 июня 23:01',
-    description: 'Мужские сандалии Adidas Производство - Вьетнам Качество Премиальное Размер с 41- 45',
-    imagesUrls: ['https://80.img.avito.st/image/1/1.Sb4Zz7a45VcvZidSB7Zr93ht51Gnbmdfb2vnValm7V2v.D0Xun0kf5vqburg0LAEV1I8RY0Au8iep-ZIzYK8VgC8']
-  },
-  {userId: 1,
-    title: 'Крссовки женские',
-    price: 2000,
-    location: 'Patong',
-    publicationDate: '20 июня 23:01',
-    description: 'Мужские сандалии Adidas Производство - Вьетнам Качество Премиальное Размер с 41- 45',
-    imagesUrls: ['https://80.img.avito.st/image/1/1.Sb4Zz7a45VcvZidSB7Zr93ht51Gnbmdfb2vnValm7V2v.D0Xun0kf5vqburg0LAEV1I8RY0Au8iep-ZIzYK8VgC8']
-  },
-  {userId: 1,
-    title: 'Крссовки женские',
-    price: 2000,
-    location: 'Patong',
-    publicationDate: '20 июня 23:01',
-    description: 'Мужские сандалии Adidas Производство - Вьетнам Качество Премиальное Размер с 41- 45',
-    imagesUrls: ['https://80.img.avito.st/image/1/1.Sb4Zz7a45VcvZidSB7Zr93ht51Gnbmdfb2vnValm7V2v.D0Xun0kf5vqburg0LAEV1I8RY0Au8iep-ZIzYK8VgC8']
-  }
-];
+export default function AdsList(){
+  const [ads, setAds] = useState<Ad[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function AdsList(){
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        const response = await api.get<{ data: Ad[] }>('/ads/get?id=1');
+        setAds((prev)=>[...prev,...response.data]);
+      } catch (err) {
+        setError('Failed to fetch ads');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAds();
+  }, []);
 
   return (
     <div className={styles.wrapper}>

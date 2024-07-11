@@ -31,7 +31,7 @@ function Navbar({ className }: NavbarProps) {
         <ShoppingCart/>
       </AppLink>
       <AppLink href="/registration">Вход и регистрация</AppLink>
-      <AppLink href="/">Разместить объявление</AppLink>
+      <AppLink href="/createAd">Разместить объявление</AppLink>
       <Button
         className={cls.links}
         theme={ThemeButton.CLEAR}

@@ -9,7 +9,7 @@ export interface AdCardProps {
 
 export default function AdCard ({ad}:AdCardProps){
   return <div className={styles.adCard}>
-    <Image width={206} height={150} src={ad.imagesUrls[0]} alt={'Ad main photo'}/>
+    {ad?.imagesUrls?<Image width={206} height={150} src={ad?.imagesUrls[0]} alt={'Ad main photo'}/>:<div className={styles.noImage}>No Image</div>}
     <div>
       <div className={styles.title}>
         <span>{ad.title}</span>

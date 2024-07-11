@@ -26,3 +26,12 @@ export interface IDBResponse<T> {
     status?: number;
     error?: string;
 }
+
+export interface ISQLResponse<T> {
+  command: string;
+  fields:Array<Record<string,number|string>>;
+  rowAsArray: boolean;
+  rowCount: number;
+  rows: Array<T>;
+  viaNeonFetch: boolean;
+}

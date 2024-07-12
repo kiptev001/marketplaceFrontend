@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Input } from '../ui/shared/Input';
 import { Button } from '../ui/shared/Button';
 import axios from 'axios';
@@ -7,10 +7,8 @@ import api from '../src/http/index';
 import { IAd } from '../src/types';
 
 const create = async (data: IAd) => {
-  console.log(data);
   try {
     const response = await api.post('/ads/create', data);
-    console.log('RESPONSE ', response);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Error creating ad:', error.response?.data || error.message);
@@ -26,17 +24,32 @@ function CreateAdPage() {
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [userId, setUserId] = useState('');
+  const inputRef = useRef();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const imageUrl = await saveImage();
     const data: IAd = {
       title,
       price: parseInt(price, 10),
       location,
       description,
       userId: parseInt(userId, 10),
+      images: [imageUrl]
     };
+
     create(data);
+  };
+
+  const saveImage = async () => {
+    var formdata = new FormData();
+    formdata.append('files', inputRef.current.files[0]);
+
+    var requestOptions = {method: 'POST', body: formdata };
+
+    const response = await fetch('/api/images/upload', requestOptions);
+    const {imageUrl} = await response.json();
+    return imageUrl;
   };
 
   return (
@@ -48,6 +61,7 @@ function CreateAdPage() {
         <Input name='location' placeholder='LOCATION' value={location} onChange={(e) => setLocation(e)} />
         <Input name='description' placeholder='DESCRIPTION' value={description} onChange={(e) => setDescription(e)} />
         <Input name='userId' placeholder='USERID' value={userId} onChange={(e) => setUserId(e)} />
+        <input ref={inputRef} type='file'/>
         <Button type='submit'>CREATE</Button>
       </form>
     </>

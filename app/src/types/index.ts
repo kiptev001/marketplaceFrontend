@@ -11,10 +11,10 @@ export interface IUser {
 }
 
 export interface IAd {
-  id: number;
+  id?: number;
   title: string;
   price?: number;
-  createdAt: Date;
+  createdAt?: Date;
   location?: string;
   description?: string;
   images?: string[];

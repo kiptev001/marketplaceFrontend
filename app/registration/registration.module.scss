@@ -1,0 +1,38 @@
+.registrationForm {
+    width: 470px;
+    padding: 35px;
+    border: solid 3px var(--primary-color);
+    border-radius: 16px;
+    margin: 160px auto;
+
+    form {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .submitButton {
+        width: 130px;
+        align-self: flex-start;
+    }
+}
+
+.validationErrors {
+    display: flex;
+    flex-direction: column;
+
+    span {
+        margin-top: 10px;
+        color: var(--light-red);
+    }
+}
+
+.alreadyRegistered {
+    align-self: center;
+    margin-top: 20px;
+
+    .alreadyRegisteredLink {
+        margin-left: 10px;
+    }
+}

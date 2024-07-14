@@ -21,6 +21,7 @@ interface IInputProps extends HTMLInputProps {
   readonly onChange?: (value: string) => void;
   readonly theme?: ThemeInput;
   readonly size?: SizeInput;
+  readonly error?: string;
 }
 
 export enum ThemeInput {
@@ -43,15 +44,15 @@ const Input = (props: IInputProps) => {
     placeholder,
     autoFocus,
     theme = 'outlined',
-    size = 'medium'
+    size = 'medium',
+    error = 'Password is required!',
+    ...rest
   } = props;
 
-  const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     if (autoFocus) {
-      setIsFocus(true);
       inputRef.current.focus();
     }
   }, [autoFocus]);
@@ -62,14 +63,9 @@ const Input = (props: IInputProps) => {
 
   return (
     <input
+      {...rest}
       className={classNames(styles.input, {[styles[theme]]: true,[styles[size]]: true,}, [className, styles.theme])}
-      onBlur={() => {
-        setIsFocus(false);
-      }}
       onChange={onChangeHandler}
-      onFocus={() => {
-        setIsFocus(true);
-      }}
       ref={inputRef}
       type={type}
       value={value}

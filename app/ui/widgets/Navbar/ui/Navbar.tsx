@@ -3,7 +3,7 @@ import classNames from 'clsx';
 import cls from './Navbar.module.scss';
 import { Button, ThemeButton } from '@/app/ui/shared/Button';
 import { Favorite, ShoppingCart } from '@mui/icons-material';
-import { AppLink } from '@/app/ui/shared/AppLink';
+import { AppLink, ThemeAppLink } from '@/app/ui/shared/AppLink';
 import App from 'next/app';
 import api from '@/app/src/http';
 
@@ -30,8 +30,8 @@ function Navbar({ className }: NavbarProps) {
       <AppLink href="/">
         <ShoppingCart/>
       </AppLink>
-      <AppLink href="/registration">Вход и регистрация</AppLink>
-      <AppLink href="/createAd">Разместить объявление</AppLink>
+      <AppLink theme={ThemeAppLink.SECONDARY} href="/registration">Вход и регистрация</AppLink>
+      <AppLink theme={ThemeAppLink.SECONDARY} href="/createAd">Разместить объявление</AppLink>
       <Button
         className={cls.links}
         theme={ThemeButton.CLEAR}

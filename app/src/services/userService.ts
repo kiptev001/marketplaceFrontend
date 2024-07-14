@@ -34,12 +34,10 @@ class UserService {
 
   async login(email:string, password:string) {
     const {user, status} = await UserModel.findOne( email );
-
     if (!user) {
       throw ApiError.BadRequest('Incorrect email');
     }
-    const isPasswordCorrect = bcrypt.compare(password, user.password);
-
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       throw ApiError.BadRequest('Incorrect password');
     }

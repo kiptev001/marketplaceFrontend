@@ -1,6 +1,8 @@
+import 'react-toastify/dist/ReactToastify.min.css';
 import './global.css';
 import { Navbar } from '@/app/ui/widgets/Navbar';
 import { SearchBar } from '@/app//ui/widgets/SearchBar';
+import { ToastContainer } from 'react-toastify';
 
 export default function RootLayout({
   children,
@@ -16,6 +18,7 @@ export default function RootLayout({
         <div className='app'>
           {children}
         </div>
+        <ToastContainer/>
       </body>
     </html>
   );

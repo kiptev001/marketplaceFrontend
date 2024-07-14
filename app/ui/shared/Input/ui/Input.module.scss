@@ -10,6 +10,7 @@
 .input {
   border: none;
   background: transparent;
+  border-radius: 6px;
 }
 
 .small {
@@ -26,7 +27,7 @@
 
 .large {
   height: var(--ui-height-l);
-  font-size:  var(--font-size-l);
+  font-size: var(--font-size-l);
   padding: 0 3px;
 }
 
@@ -35,5 +36,9 @@
 }
 
 .outlined {
-  border: solid 1px var(--primary-color);
+  background-color: var(--inverted-secondary-color);
+
+  &:focus {
+    outline: solid 3px var(--primary-color);
+  }
 }

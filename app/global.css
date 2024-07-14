@@ -4,15 +4,18 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Roboto";
 }
 
 .app {
   padding: 0 114px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 40px - 90px);
 }
 
 :root {
-  --font-family-main: 'Roboto', 'Times New Roman', serif;
-
   --font-size-s: 8px;
   --font-size-m: 10px;
   --font-size-l: 12px;
@@ -25,9 +28,9 @@
   --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
   --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
 
-  --ui-height-s: 20px;
-  --ui-height-m: 28px;
-  --ui-height-l: 36px;
+  --ui-height-s: 22px;
+  --ui-height-m: 30px;
+  --ui-height-l: 38px;
 
   --navbar-height: 40px;
   --sidebar-width: 170px;

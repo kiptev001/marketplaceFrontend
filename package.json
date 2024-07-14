@@ -26,6 +26,8 @@
     "nodemailer": "^6.9.14",
     "react": "19.0.0-rc-6230622a1a-20240610",
     "react-dom": "19.0.0-rc-6230622a1a-20240610",
+    "react-hook-form": "^7.52.1",
+    "react-toastify": "^10.0.5",
     "sass": "^1.77.6",
     "typescript": "5.2.2",
     "use-debounce": "^10.0.1",

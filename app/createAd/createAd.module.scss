@@ -1,0 +1,17 @@
+.newAdPage {
+    width: 100%;
+}
+
+.fieldWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+    .fieldWrapperText {
+        width: 30%;
+    }
+
+    .fieldWrapperInput {
+        width: 70%;
+    }
+}

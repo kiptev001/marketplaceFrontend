@@ -1,44 +1,52 @@
 'use client';
 import React, { useRef, useState } from 'react';
-import { Input } from '../ui/shared/Input';
+import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
 import { Button } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
 import { IAd } from '../src/types';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import styles from './createAd.module.scss';
+import { Dropdown } from '../ui/shared/Dropdown';
 
-const create = async (data: IAd) => {
-  try {
-    const response = await api.post('/ads/create', data);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Error creating ad:', error.response?.data || error.message);
-    } else {
-      console.error('Unexpected error:', error);
-    }
-  }
-};
+enum Currencies {
+  'RUB'= 'RUB',
+  'USD' = 'USD',
+  'THB' = 'THB'
+}
+
+type Inputs = {
+  title: string
+  price: string
+  location: string
+  description: string
+  userId: number
+  currency: Currencies
+}
 
 function CreateAdPage() {
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
-  const [userId, setUserId] = useState('');
-  const inputRef = useRef();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<Inputs>();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const imageUrl = await saveImage();
-    const data: IAd = {
-      title,
-      price: parseInt(price, 10),
-      location,
-      description,
-      userId: parseInt(userId, 10),
-      images: [imageUrl]
-    };
+  const onSubmit :SubmitHandler<Inputs> = async (values) => {
+    console.log('VALUES',values);
+    // event.preventDefault();
+    // const imageUrl = await saveImage();
+    // const data: IAd = {
+    //   title,
+    //   price: parseInt(price, 10),
+    //   location,
+    //   description,
+    //   userId: parseInt(userId, 10),
+    //   images: [imageUrl]
+    // };
 
-    create(data);
+    // createAd(data);
   };
 
   const saveImage = async () => {
@@ -52,19 +60,127 @@ function CreateAdPage() {
     return imageUrl;
   };
 
+  const createAd = async (data: IAd) => {
+    try {
+      const response = await api.post('/ads/create', data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error creating ad:', error.response?.data || error.message);
+      } else {
+        console.error('Unexpected error:', error);
+      }
+    }
+  };
+
   return (
-    <>
-      <div>Create new ad page</div>
-      <form onSubmit={handleSubmit}>
-        <Input name='title' placeholder='TITLE' value={title} onChange={(e) => setTitle(e)} />
+    <div className={styles.newAdPage}>
+      <h1>Новое объявление</h1>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <h2>Параметры</h2>
+
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Название объявления</p>
+          </div>
+          <div className={styles.fieldWrapperInput}>
+            <Controller
+              name="title"
+              rules={{
+                required: 'Введите название объявления'
+              }}
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  theme={ThemeInput.OUTLINED}
+                  size={SizeInput.LARGE}
+                />
+              )}
+            />
+          </div>
+        </div>
+
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Цена</p>
+          </div>
+          <Controller
+            name="price"
+            rules={{
+              required: 'Введите цену'
+            }}
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Input
+                {...field}
+                theme={ThemeInput.OUTLINED}
+                size={SizeInput.LARGE}
+              />
+            )}
+          />
+          {/* <select className={styles.customSelect} {...register('currency')}>
+            <option value={Currencies.RUB}>Рубль</option>
+            <option value={Currencies.USD}>Доллар</option>
+            <option value={Currencies.THB}>Батт</option>
+          </select> */}
+          <Dropdown optionsEnum={Currencies} register={register('currency')}/>
+        </div>
+
+        <h2>Подробности</h2>
+
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Описание объявления</p>
+          </div>
+          <div className={styles.fieldWrapperInput}>
+            <Controller
+              name="description"
+              rules={{
+                required: 'Введите описание объявления'
+              }}
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <textarea {...field}/>
+              )}
+            />
+          </div>
+          
+         
+        </div>
+
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Место продажи</p>
+          </div>
+          <div className={styles.fieldWrapperInput}>
+            <Controller
+              name="location"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  theme={ThemeInput.OUTLINED}
+                  size={SizeInput.LARGE}
+                />
+              )}
+            />
+          </div>
+        </div>
+
+
+        {/* <Input name='title' placeholder='TITLE' value={title} onChange={(e) => setTitle(e)} />
         <Input name='price' placeholder='PRICE' value={price} onChange={(e) => setPrice(e)} />
         <Input name='location' placeholder='LOCATION' value={location} onChange={(e) => setLocation(e)} />
         <Input name='description' placeholder='DESCRIPTION' value={description} onChange={(e) => setDescription(e)} />
         <Input name='userId' placeholder='USERID' value={userId} onChange={(e) => setUserId(e)} />
-        <input ref={inputRef} type='file'/>
+        <input ref={inputRef} type='file'/> */}
         <Button type='submit'>CREATE</Button>
       </form>
-    </>
+    </div >
   );
 }
 

@@ -21,7 +21,6 @@ interface IInputProps extends HTMLInputProps {
   readonly onChange?: (value: string) => void;
   readonly theme?: ThemeInput;
   readonly size?: SizeInput;
-  readonly error?: string;
 }
 
 export enum ThemeInput {
@@ -45,7 +44,6 @@ const Input = (props: IInputProps) => {
     autoFocus,
     theme = 'outlined',
     size = 'medium',
-    error = 'Password is required!',
     ...rest
   } = props;
 

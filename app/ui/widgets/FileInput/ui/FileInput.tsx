@@ -1,39 +1,60 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import styles from './FileInput.module.scss';
 import cn from 'clsx';
 import Image from 'next/image';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/app/ui/shared/Button';
+import { ImagesearchRollerRounded } from '@mui/icons-material';
 
 interface IFileInputProps {
   className?: string;
   multiple?: boolean;
   accept?: string;
   register?:any;
+  setImages?:Dispatch<SetStateAction<FileList | null>>;
+  images?: FileList;
 }
 
-const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, accept, register }) => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const inputRef = useRef();
+const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, accept, register, setImages, images }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    inputRef?.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      setImages && setImages(prevImages => [...(prevImages || []), ...Array.from(files)]);
+    }
+  };
 
   return (
-    <div className={cn(styles.fileInputContainer,{},[className])}>
+    <div className={cn(styles.fileInputContainer, {}, [className])}>
+      <div className={styles.selectedFiles}>
+        {images && (
+          Array.from(images).map((file, index) => (
+            <div className={styles.imagePreview} key={index}>
+              <Image fill alt='Image' src={URL.createObjectURL(file)} className={styles.selectedFile} />
+            </div>
+          )))}
+      </div>
+      <Button className={styles.inputButton} onClick={handleClick}>Добавить фотографию</Button>
       <input
+        name='images'
         type="file"
-        ref={inputRef}
         multiple={multiple}
         accept={accept}
         className={styles.fileInput}
-        onInput={(e)=>setSelectedFiles(e.target.files)}
-        {...register}
-      />
-      {selectedFiles && (
-        <div className={styles.selectedFiles}>Selected files
-          {Array.from(selectedFiles).map((file, index) => (
-            <Image width={100} height={100} alt='Image' src={URL.createObjectURL(file)} className={styles.selectedFile} key={index}/>
-          ))}
-        </div>
-      )}
+        onInput={handleFileChange}
+        ref={(e) => {
+          inputRef.current = e;
+          register;
+        } } />
     </div>
+
+
   );
 };
 

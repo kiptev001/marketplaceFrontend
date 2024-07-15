@@ -14,6 +14,7 @@ export interface IAd {
   id?: number;
   title: string;
   price?: number;
+  currency:string;
   createdAt?: Date;
   location?: string;
   description?: string;

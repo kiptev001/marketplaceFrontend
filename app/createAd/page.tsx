@@ -34,32 +34,41 @@ function CreateAdPage() {
     control,
     formState: { errors },
   } = useForm<Inputs>();
-
+  const [images, setImages] = useState<Array<File>|null>(null);
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
-    console.log('VALUES',values);
-    // event.preventDefault();
-    // const imageUrl = await saveImage();
-    // const data: IAd = {
-    //   title,
-    //   price: parseInt(price, 10),
-    //   location,
-    //   description,
-    //   userId: parseInt(userId, 10),
-    //   images: [imageUrl]
-    // };
 
-    // createAd(data);
+    const imageUrls = await saveImages();
+    const data: IAd = {
+      title:values.title,
+      price: parseInt(values.price, 10),
+      currency:values.currency,
+      location:values.location,
+      description:values.description,
+      userId: 1,
+      images: imageUrls
+    };
+
+    createAd(data);
   };
 
-  const saveImage = async () => {
-    var formdata = new FormData();
-    formdata.append('files', inputRef.current.files[0]);
+  const saveImages = async () => {
+    const uploadFile = async (file: File) => {
+      const formdata = new FormData();
+      formdata.append('files', file);
 
-    var requestOptions = {method: 'POST', body: formdata };
+      const requestOptions = {
+        method: 'POST',
+        body: formdata,
+      };
 
-    const response = await fetch('/api/images/upload', requestOptions);
-    const {imageUrl} = await response.json();
-    return imageUrl;
+      const response = await fetch('/api/images/upload', requestOptions);
+      const { imageUrl } = await response.json();
+      return imageUrl;
+    };
+
+    const imageUrls = await Promise.all(images.map(file => uploadFile(file)));
+
+    return imageUrls;
   };
 
   const createAd = async (data: IAd) => {
@@ -176,7 +185,7 @@ function CreateAdPage() {
             <p>Выберите одну или несколько фотографий</p>
           </div>
           <div className={styles.fieldWrapperInput}>
-            <FileInput accept="image/*" multiple register={register('images')}/>
+            <FileInput images={images} setImages={setImages} accept="image/*" multiple register={register}/>
           </div>
         </div>
 

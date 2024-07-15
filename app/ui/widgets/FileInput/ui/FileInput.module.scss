@@ -1,18 +1,44 @@
 .fileInputContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 
 .fileInput {
-    margin-bottom: 10px;
+    visibility: hidden;
+}
+
+.inputButton {
+    margin-top: 15px;
 }
 
 .selectedFiles {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: solid 3px var(--primary-color);
+    min-width: 300px;
+    min-height: 200px;
+    border-radius: 6px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.imagePreview {
+    position: relative;
+    width: 120px;
+    height: 160px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        outline: solid 3px var(--primary-color);
+    }
 }
 
 .selectedFile {
-    margin-bottom: 5px;
+    object-fit: contain;
 }

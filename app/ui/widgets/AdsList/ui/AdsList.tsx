@@ -13,7 +13,7 @@ export default function AdsList(){
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const response = await api.get<{ data: Ad[] }>('/ads/get?id=1');
+        const response = await api.get<{ data: Ad[] }>('/ads/get');
         setAds((prev)=>[...prev,...response.data]);
       } catch (err) {
         setError('Failed to fetch ads');

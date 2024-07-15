@@ -38,4 +38,8 @@
     max-width: 300px;
     resize: vertical;
     min-height: 100px;
+
+    &:focus {
+        outline: solid 3px var(--primary-color);
+    }
 }

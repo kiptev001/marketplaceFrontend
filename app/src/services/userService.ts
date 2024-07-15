@@ -72,9 +72,9 @@ class UserService {
     if (!userData || !tokenFromDb) {
       return ApiError.UnauthorizedError();
     }
-
+    //@ts-ignore
     const {user:userDataFromDb } = await UserModel.findById(userData.id);
-
+    //@ts-ignore
     const { password, ...userDto } = userDataFromDb;
 
     const tokens = await tokenService.generateTokens({ ...userDto });

@@ -52,7 +52,7 @@ function CreateAdPage() {
   };
 
   const saveImages = async () => {
-    const uploadFile = async (file: File) => {
+    const uploadFile = async (file: File):Promise<string> => {
       const formdata = new FormData();
       formdata.append('files', file);
 
@@ -65,6 +65,8 @@ function CreateAdPage() {
       const { imageUrl } = await response.json();
       return imageUrl;
     };
+
+    if(!images)return null;
 
     const imageUrls = await Promise.all(images.map(file => uploadFile(file)));
 

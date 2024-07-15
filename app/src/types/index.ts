@@ -18,7 +18,7 @@ export interface IAd {
   createdAt?: Date;
   location?: string;
   description?: string;
-  images?: string[];
+  images?: string[] | null;
   userId: number;
 }
 

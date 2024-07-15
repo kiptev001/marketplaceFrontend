@@ -12,8 +12,8 @@ interface IFileInputProps {
   multiple?: boolean;
   accept?: string;
   register?:any;
-  setImages?:Dispatch<SetStateAction<FileList | null>>;
-  images?: FileList;
+  setImages?:Dispatch<SetStateAction<Array<File> | null>>;
+  images?: Array<File> | null;
 }
 
 const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, accept, register, setImages, images }) => {

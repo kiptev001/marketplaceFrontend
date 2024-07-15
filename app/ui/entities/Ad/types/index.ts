@@ -5,5 +5,5 @@ export interface Ad {
     location: string;
     publicationDate: string;
     description: string;
-    imagesUrls: Array<string>
+    images: Array<string>
 }

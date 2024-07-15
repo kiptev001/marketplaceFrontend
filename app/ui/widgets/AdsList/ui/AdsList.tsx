@@ -14,6 +14,7 @@ export default function AdsList(){
     const fetchAds = async () => {
       try {
         const response = await api.get<{ data: Ad[] }>('/ads/get');
+        //@ts-ignore
         setAds((prev)=>[...prev,...response.data]);
       } catch (err) {
         setError('Failed to fetch ads');

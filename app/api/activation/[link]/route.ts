@@ -1,15 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import UserModel from '../../../src/models/userModel';
-import { NextApiRequest, NextApiResponse } from 'next/types';
 import { ApiError } from '../../../src/services/apiError';
 
 interface DatabaseError extends Error {
   code?: string;
 }
 
-export async function GET(req: NextApiRequest, params: Record<string,string>) {
+export async function GET(req: NextRequest, { params }: { params: { link: string } }) {
   try {
-    const activationLink = params.params.link;
+    const activationLink = params.link;
 
     if (!activationLink) {
       return NextResponse.json({ error: 'Activation link is missing' }, { status: 400 });
@@ -21,7 +20,7 @@ export async function GET(req: NextApiRequest, params: Record<string,string>) {
       throw ApiError.BadRequest('Incorrect activation link');
     }
 
-    return NextResponse.redirect(process.env.CLIENT_URL);
+    return NextResponse.redirect(process.env.CLIENT_URL || '/');
   } catch (error) {
     const dbError = error as DatabaseError;
     return NextResponse.json({ error: dbError.message }, { status: 500 });

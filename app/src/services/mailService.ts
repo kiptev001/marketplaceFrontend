@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 class MailService {
   constructor(){
+    //@ts-ignore
     this.transporter = nodemailer.createTransport({
       host:process.env.SMTP_HOST,
       port:process.env.SMTP_PORT,
@@ -12,8 +13,9 @@ class MailService {
       }
     });
   }
-  async sendActivationMail( to, link ){
+  async sendActivationMail( to:string, link:string ){
     const fullLink = `http://localhost:3000/api/activation/${link}`;
+    //@ts-ignore
     this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to: to,

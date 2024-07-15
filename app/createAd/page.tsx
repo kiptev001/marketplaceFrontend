@@ -1,13 +1,14 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
-import { Button } from '../ui/shared/Button';
+import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
 import { IAd } from '../src/types';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import styles from './createAd.module.scss';
 import { Dropdown } from '../ui/shared/Dropdown';
+import { FileInput } from '../ui/widgets/FileInput';
 
 enum Currencies {
   'RUB'= 'RUB',
@@ -22,6 +23,7 @@ type Inputs = {
   description: string
   userId: number
   currency: Currencies
+  images: FileList
 }
 
 function CreateAdPage() {
@@ -74,9 +76,9 @@ function CreateAdPage() {
 
   return (
     <div className={styles.newAdPage}>
-      <h1>Новое объявление</h1>
+      <h1 className={styles.h1}>Новое объявление</h1>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>Параметры</h2>
+        <h2 className={styles.h2}>Параметры</h2>
 
         <div className={styles.fieldWrapper}>
           <div className={styles.fieldWrapperText}>
@@ -105,30 +107,27 @@ function CreateAdPage() {
           <div className={styles.fieldWrapperText}>
             <p>Цена</p>
           </div>
-          <Controller
-            name="price"
-            rules={{
-              required: 'Введите цену'
-            }}
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Input
-                {...field}
-                theme={ThemeInput.OUTLINED}
-                size={SizeInput.LARGE}
-              />
-            )}
-          />
-          {/* <select className={styles.customSelect} {...register('currency')}>
-            <option value={Currencies.RUB}>Рубль</option>
-            <option value={Currencies.USD}>Доллар</option>
-            <option value={Currencies.THB}>Батт</option>
-          </select> */}
-          <Dropdown optionsEnum={Currencies} register={register('currency')}/>
+          <div className={styles.fieldWrapperInput}>
+            <Controller
+              name="price"
+              rules={{
+                required: 'Введите цену'
+              }}
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  theme={ThemeInput.OUTLINED}
+                  size={SizeInput.LARGE}
+                />
+              )}
+            />
+            <Dropdown optionsEnum={Currencies} register={register('currency')}/>
+          </div>
         </div>
 
-        <h2>Подробности</h2>
+        <h2 className={styles.h2}>Подробности</h2>
 
         <div className={styles.fieldWrapper}>
           <div className={styles.fieldWrapperText}>
@@ -143,7 +142,7 @@ function CreateAdPage() {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <textarea {...field}/>
+                <textarea className={styles.textarea} {...field}/>
               )}
             />
           </div>
@@ -171,14 +170,17 @@ function CreateAdPage() {
           </div>
         </div>
 
+        <h2 className={styles.h2}>Фотографии</h2>
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Выберите одну или несколько фотографий</p>
+          </div>
+          <div className={styles.fieldWrapperInput}>
+            <FileInput accept="image/*" multiple register={register('images')}/>
+          </div>
+        </div>
 
-        {/* <Input name='title' placeholder='TITLE' value={title} onChange={(e) => setTitle(e)} />
-        <Input name='price' placeholder='PRICE' value={price} onChange={(e) => setPrice(e)} />
-        <Input name='location' placeholder='LOCATION' value={location} onChange={(e) => setLocation(e)} />
-        <Input name='description' placeholder='DESCRIPTION' value={description} onChange={(e) => setDescription(e)} />
-        <Input name='userId' placeholder='USERID' value={userId} onChange={(e) => setUserId(e)} />
-        <input ref={inputRef} type='file'/> */}
-        <Button type='submit'>CREATE</Button>
+        <Button size={SizeButton.MEDIUM} type='submit'>Создать</Button>
       </form>
     </div >
   );

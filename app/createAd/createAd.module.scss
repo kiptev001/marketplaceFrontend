@@ -1,17 +1,41 @@
 .newAdPage {
     width: 100%;
+
+    .h1 {
+        margin-top: 50px;
+    }
+
+    .h2 {
+        margin-top: 30px;
+    }
 }
 
 .fieldWrapper {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 25px;
 
     .fieldWrapperText {
         width: 30%;
     }
 
     .fieldWrapperInput {
+        display: flex;
+        gap: 20px;
         width: 70%;
+        margin-left: 20px;
     }
+}
+
+.textarea {
+    background-color: var(--inverted-secondary-color);
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: var(--font-size-l);
+    color: var(--secondary-color);
+    width: 100%;
+    max-width: 300px;
+    resize: vertical;
+    min-height: 100px;
 }

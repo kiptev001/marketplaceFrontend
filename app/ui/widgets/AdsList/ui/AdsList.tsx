@@ -14,11 +14,9 @@ export default function AdsList(){
     const fetchAds = async () => {
       try {
         const response = await api.get<{ data: Ad[] }>('/ads/getMany');
-        console.log('AD RESPONSE ',response);
         //@ts-ignore
-        setAds((prev)=>[...prev,...response.data]);
+        setAds(response.data);
         const userResponse = await api.get('/users/getUser?email=reactcrwk@rambler.ru');
-        console.log('USER RESPONSE=',userResponse);
       } catch (err) {
         setError('Failed to fetch ads');
         console.error(err);
@@ -29,6 +27,8 @@ export default function AdsList(){
 
     fetchAds();
   }, []);
+
+  if(loading)return <div>Loading...</div>;
 
   return (
     <div className={styles.wrapper}>

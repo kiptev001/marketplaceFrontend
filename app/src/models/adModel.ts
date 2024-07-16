@@ -28,9 +28,10 @@ class AdModel {
 
   async create(ad:IAd):Promise<IDBResponse<IAd>>{
     const imagesArray = `{${ad?.images?.map(image => `"${image}"`).join(',')}}`;
+    const contactsJson = JSON.stringify(ad.contacts);
     const result = await sql<IAd>`
-    INSERT INTO ads (title, price, createdAt, location, description, images, userId, currency) 
-    VALUES (${ad.title}, ${ad.price}, CURRENT_TIMESTAMP, ${ad.location}, ${ad.description}, ${imagesArray}, ${ad.userId}, ${ad.currency})
+    INSERT INTO ads (title, price, createdAt, location, description, images, userId, currency, contacts) 
+    VALUES (${ad.title}, ${ad.price}, CURRENT_TIMESTAMP, ${ad.location}, ${ad.description}, ${imagesArray}, ${ad.userId}, ${ad.currency}, ${contactsJson}::jsonb)
     RETURNING *;
   `;
 

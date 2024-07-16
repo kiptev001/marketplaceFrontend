@@ -10,7 +10,7 @@ interface DatabaseError extends Error {
 export async function POST(request:NextRequest ) {
   try {
     const cookie = cookies().get('refreshToken');
-    console.log('COOKIE',cookie);
+
     if(!cookie?.value){
       return NextResponse.json({ error: 'No refresh token' }, { status: 500 });
     }

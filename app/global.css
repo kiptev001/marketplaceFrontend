@@ -19,6 +19,7 @@
   --font-size-s: 10px;
   --font-size-m: 16px;
   --font-size-l: 22px;
+  --font-size-xl: 28px;
 
   --font-line-s: 18px;
   --font-line-m: 26px;
@@ -37,7 +38,7 @@
   --sidebar-width-collapsed: 60px;
   --modal-z-index: 10;
   --overlay-color: rgba(24, 24, 25, 0.394);
-  --light-red: rgb(235 9 9);
+  --light-red: #f71b47;
   --dark-red: rgb(161 9 9);
 
   --bg-color: #ffffff;
@@ -49,4 +50,6 @@
   
   --secondary-color: #292930;
   --inverted-secondary-color: #dee0e4;
+
+  --light-grey-color: #757575;
 }

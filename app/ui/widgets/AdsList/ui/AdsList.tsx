@@ -13,9 +13,12 @@ export default function AdsList(){
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const response = await api.get<{ data: Ad[] }>('/ads/get');
+        const response = await api.get<{ data: Ad[] }>('/ads/getMany');
+        console.log('AD RESPONSE ',response);
         //@ts-ignore
         setAds((prev)=>[...prev,...response.data]);
+        const userResponse = await api.get('/users/getUser?email=reactcrwk@rambler.ru');
+        console.log('USER RESPONSE=',userResponse);
       } catch (err) {
         setError('Failed to fetch ads');
         console.error(err);
@@ -29,9 +32,9 @@ export default function AdsList(){
 
   return (
     <div className={styles.wrapper}>
-      <div>Рекомендации для вас</div>
+      <h5 className={styles.title}>Рекомендации для вас</h5>
       <div className={styles.list}>
-        {ads.map(ad=><AdCard key={ad.title} ad={ad}/>)}
+        {ads.map(ad=><AdCard className={styles.item} key={ad.title} ad={ad}/>)}
       </div>
     </div>
   );

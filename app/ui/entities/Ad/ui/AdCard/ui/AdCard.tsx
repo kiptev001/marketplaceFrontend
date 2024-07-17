@@ -21,7 +21,7 @@ export default function AdCard ({ad,className}:AdCardProps){
       <Button className={styles.addToFavorites}>+</Button>
       <span className={styles.price}>{ad.price} {ad.currency}</span>
       <span className={styles.location}>{ad.location}</span>
-      <span className={styles.createdAt}>{formatDate(ad.createdat)}</span>
+      <span className={styles.createdAt}>{formatDate(ad?.createdat as string)}</span>
     </div>
   </div>;
 }

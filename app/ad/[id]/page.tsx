@@ -21,7 +21,6 @@ export default function AdPage({ params }: { params: { id: string } }){
     getAd();
   }, [getAd]);
     
-
   return (
     <section className={styles.adPage}>
       <hr/>
@@ -31,7 +30,7 @@ export default function AdPage({ params }: { params: { id: string } }){
       </div>
       <div className={styles.imageBlock}>
         <div className={styles.mainImage}>
-          {ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={selectedPhoto}/>}
+          {ad?.images && ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={selectedPhoto}/>}
         </div>
         <div className={styles.allImages}>
           {ad?.images && ad?.images?.length > 1 && ad?.images.map((url)=><Image onClick={()=>setSelectedPhoto(url)} className={cn(styles.image,url===selectedPhoto? styles.selected:null)} width={150} height={150} key={url} alt='Image' src={url}/>)}

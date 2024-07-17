@@ -4,7 +4,7 @@ import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
-import { IAd } from '../src/types';
+import { Ad, Contact } from '../ui/entities/Ad/types';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import styles from './createAd.module.scss';
 import { Dropdown } from '../ui/shared/Dropdown';
@@ -24,6 +24,7 @@ type Inputs = {
   userId: number
   currency: Currencies
   images: FileList
+  contacts: Array<Contact>
 }
 
 function CreateAdPage() {
@@ -38,7 +39,7 @@ function CreateAdPage() {
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
 
     const imageUrls = await saveImages();
-    const data: IAd = {
+    const data: Ad = {
       title:values.title,
       price: parseInt(values.price, 10),
       currency:values.currency,
@@ -73,7 +74,7 @@ function CreateAdPage() {
     return imageUrls;
   };
 
-  const createAd = async (data: IAd) => {
+  const createAd = async (data: Ad) => {
     try {
       const response = await api.post('/ads/create', data);
     } catch (error) {

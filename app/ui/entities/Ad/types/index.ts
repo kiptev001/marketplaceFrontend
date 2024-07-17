@@ -1,14 +1,14 @@
 export interface Ad {
-    id:number;
+    id?:number;
     userId: number;
     title: string;
     price: number;
     currency:string;
     location: string;
     description: string;
-    images: Array<string>;
-    createdat:string;
-    contacts: Array<Contact>
+    images: Array<string> | null;
+    createdat?:string;
+    contacts?: Array<Contact>
 }
 
 export interface Contact {

@@ -10,18 +10,6 @@ export interface IUser {
     id: string;
 }
 
-export interface IAd {
-  id?: number;
-  title: string;
-  price?: number;
-  currency:string;
-  createdAt?: Date;
-  location?: string;
-  description?: string;
-  images?: string[] | null;
-  userId: number;
-}
-
 export interface IDBResponse<T> {
     data?: T | Array<T>;
     status?: number;

@@ -1,9 +1,10 @@
 import { sql } from '@vercel/postgres';
-import { IAd, IDBResponse, ISQLResponse } from '../types';
+import { IDBResponse, ISQLResponse } from '../types';
+import { Ad } from '@/app/ui/entities/Ad/types/index';
 
 class AdModel {
-  async findOneById(id:number):Promise<IDBResponse<IAd>>{
-    const result = await sql<IAd>`
+  async findOneById(id:number):Promise<IDBResponse<Ad>>{
+    const result = await sql<Ad>`
       SELECT * FROM ads WHERE id = ${id};
     `;
 
@@ -14,8 +15,8 @@ class AdModel {
     return { data: result.rows[0] ,status: 200 };
   }
 
-  async findMany(limit: number): Promise<IDBResponse<IAd[]>> {
-    const result = await sql<IAd>`
+  async findMany(limit: number): Promise<IDBResponse<Ad[]>> {
+    const result = await sql<Ad>`
     SELECT * FROM ads LIMIT ${limit};
   `;
 
@@ -26,10 +27,10 @@ class AdModel {
     return { data: result.rows, status: 200 };
   }
 
-  async create(ad:IAd):Promise<IDBResponse<IAd>>{
+  async create(ad:Ad):Promise<IDBResponse<Ad>>{
     const imagesArray = `{${ad?.images?.map(image => `"${image}"`).join(',')}}`;
     const contactsJson = JSON.stringify(ad.contacts);
-    const result = await sql<IAd>`
+    const result = await sql<Ad>`
     INSERT INTO ads (title, price, createdAt, location, description, images, userId, currency, contacts) 
     VALUES (${ad.title}, ${ad.price}, CURRENT_TIMESTAMP, ${ad.location}, ${ad.description}, ${imagesArray}, ${ad.userId}, ${ad.currency}, ${contactsJson}::jsonb)
     RETURNING *;

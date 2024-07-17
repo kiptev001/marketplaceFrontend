@@ -2,7 +2,7 @@
 import axios from 'axios';
 import {IAuthResponse} from '../types/index';
 
-export const API_URL = 'http://localhost:3000/api';
+export const API_URL = 'https://www.thaisell.net/api';
 
 const api = axios.create({
   withCredentials: true,

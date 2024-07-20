@@ -62,9 +62,9 @@ function CreateAdPage() {
         body: formdata,
       };
 
-      const response = await fetch('/api/images/upload', requestOptions);
-      const { imageUrl } = await response.json();
-      return imageUrl;
+      const response = await fetch('http://147.45.196.66:3000/upload', requestOptions);
+      const { url } = await response.json();
+      return url;
     };
 
     if(!images)return null;

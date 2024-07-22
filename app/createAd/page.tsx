@@ -5,10 +5,11 @@ import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
 import { Ad, Contact } from '../ui/entities/Ad/types';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler, useFieldArray } from 'react-hook-form';
 import styles from './createAd.module.scss';
 import { Dropdown } from '../ui/shared/Dropdown';
 import { FileInput } from '../ui/widgets/FileInput';
+import { ContactTypes } from '../ui/entities/Ad/types';
 
 enum Currencies {
   'RUB'= 'RUB',
@@ -35,6 +36,12 @@ function CreateAdPage() {
     control,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'contacts'
+  });
+
   const [images, setImages] = useState<Array<File>|null>(null);
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
 
@@ -46,7 +53,8 @@ function CreateAdPage() {
       location:values.location,
       description:values.description,
       userId: 1,
-      images: imageUrls
+      images: imageUrls,
+      contacts: values.contacts
     };
 
     createAd(data);
@@ -189,6 +197,53 @@ function CreateAdPage() {
           </div>
           <div className={styles.fieldWrapperInput}>
             <FileInput images={images} setImages={setImages} accept="image/*" multiple register={register}/>
+          </div>
+        </div>
+
+        <h2 className={styles.h2}>Контакты</h2>
+        <div className={styles.fieldWrapper}>
+          <div className={styles.fieldWrapperText}>
+            <p>Укажите один или несколько способов для связи</p>
+          </div>
+          <div className={styles.fieldWrapperContacts}>
+            {fields.map((item, index) => (
+              <div key={item.id} className={styles.contact}>
+                <p>Тип</p>
+                <Controller
+                  name={`contacts.${index}.type`}
+                  control={control}
+                  defaultValue={item.type}
+                  render={({ field }) => (
+                    <select {...field} className={styles.select}>
+                      {Object.keys(ContactTypes).map((key) => (
+                        <option key={key} value={key}>
+                          {ContactTypes[key as keyof typeof ContactTypes]}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                <p>Значение</p>
+                <Controller
+                  name={`contacts.${index}.value`}
+                  control={control}
+                  defaultValue={item.value}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      theme={ThemeInput.OUTLINED}
+                      size={SizeInput.LARGE}
+                    />
+                  )}
+                />
+                <Button type="button" onClick={() => remove(index)} size={SizeButton.SMALL}>
+                  Удалить контакт
+                </Button>
+              </div>
+            ))}
+            <Button className={styles.addButton} type="button" onClick={() => append({ type: ContactTypes.WHATSAPP, value: '' })} size={SizeButton.MEDIUM}>
+              Добавить контакт
+            </Button>
           </div>
         </div>
 

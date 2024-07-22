@@ -3,10 +3,11 @@ import axios from 'axios';
 import {IAuthResponse} from '../types/index';
 
 export const API_URL = 'https://www.thaisell.net/api';
+const LOCAL_API_URL = 'http://localhost:3000/api';
 
 const api = axios.create({
   withCredentials: true,
-  baseURL: process.env.API_URL || API_URL,
+  baseURL: API_URL,
 });
 
 api.interceptors.request.use((config)=>{

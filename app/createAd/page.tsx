@@ -55,7 +55,7 @@ function CreateAdPage() {
   const saveImages = async () => {
     const uploadFile = async (file: File):Promise<string> => {
       const formdata = new FormData();
-      formdata.append('files', file);
+      formdata.append('image', file);
 
       const requestOptions = {
         method: 'POST',

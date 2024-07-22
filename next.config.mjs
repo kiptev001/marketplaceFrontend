@@ -24,6 +24,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.thaisell.net',
+        port: '',
+        pathname:'/**',
+      }
     ],
   },
   sassOptions: {

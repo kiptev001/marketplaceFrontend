@@ -30,10 +30,10 @@ export default function AdPage({ params }: { params: { id: string } }){
       </div>
       <div className={styles.imageBlock}>
         <div className={styles.mainImage}>
-          {ad?.images && ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={selectedPhoto}/>}
+          {ad?.images && ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={`https://api.thaisell.net${selectedPhoto}`}/>}
         </div>
         <div className={styles.allImages}>
-          {ad?.images && ad?.images?.length > 1 && ad?.images.map((url)=><Image onClick={()=>setSelectedPhoto(url)} className={cn(styles.image,url===selectedPhoto? styles.selected:null)} width={150} height={150} key={url} alt='Image' src={url}/>)}
+          {ad?.images && ad?.images?.length > 1 && ad?.images.map((url)=><Image onClick={()=>setSelectedPhoto(url)} className={cn(styles.image,url===selectedPhoto? styles.selected:null)} width={150} height={150} key={url} alt='Image' src={`https://api.thaisell.net${url}`}/>)}
         </div>
       </div>
       <h2 className={styles.heading}>Описание</h2>

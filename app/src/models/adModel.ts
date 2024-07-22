@@ -15,9 +15,9 @@ class AdModel {
     return { data: result.rows[0] ,status: 200 };
   }
 
-  async findMany(limit: number): Promise<IDBResponse<Ad[]>> {
+  async findMany(): Promise<IDBResponse<Ad[]>> {
     const result = await sql<Ad>`
-    SELECT * FROM ads LIMIT ${limit};
+    SELECT * FROM ads;
   `;
 
     if (result.rowCount === 0) {

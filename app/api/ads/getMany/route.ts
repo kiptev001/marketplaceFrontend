@@ -8,9 +8,7 @@ interface DatabaseError extends Error {
 
 export async function GET(request:NextRequest, params: Record<string,string> ) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    const response = await AdModel.findMany(10);
+    const response = await AdModel.findMany();
 
     return NextResponse.json(response.data);
 

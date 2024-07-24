@@ -44,7 +44,7 @@ export default function AdPage({ params }: { params: { id: string } }){
       <h2 className={styles.heading}>Дата размещения объявления</h2>
       <div className={styles.createdat}>{formatDate(ad?.createdat as string)}</div>
       {ad?.contacts && ad?.contacts?.map((contact)=>{
-        if(contact.type === 'TELEGRAM'){
+        if(contact.type === 'Telegram'){
           if(contact.value[0]==='@'){
             contact.value = contact.value.slice(1);
           }
@@ -53,7 +53,7 @@ export default function AdPage({ params }: { params: { id: string } }){
           <div key={contact.value}>
             <div>{contact.type}</div>
             <div>{contact.value}</div>
-            {contact.type === 'TELEGRAM' ?
+            {contact.type === 'Telegram' ?
               <a href={`https://t.me/${contact.value}`} target="_blank">Chat on Telegram</a>:
               <a href={`https://wa.me/${contact.value}`} target="_blank">Chat on WhatsApp</a>
             }

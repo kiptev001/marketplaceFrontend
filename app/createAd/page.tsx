@@ -4,18 +4,13 @@ import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
-import { Ad, Contact } from '../ui/entities/Ad/types';
+import { Ad, Contact, Currencies } from '../ui/entities/Ad/types';
 import { useForm, Controller, SubmitHandler, useFieldArray } from 'react-hook-form';
 import styles from './createAd.module.scss';
 import { Dropdown } from '../ui/shared/Dropdown';
 import { FileInput } from '../ui/widgets/FileInput';
 import { ContactTypes } from '../ui/entities/Ad/types';
-
-enum Currencies {
-  'RUB'= 'RUB',
-  'USD' = 'USD',
-  'THB' = 'THB'
-}
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type Inputs = {
   title: string
@@ -44,7 +39,6 @@ function CreateAdPage() {
 
   const [images, setImages] = useState<Array<File>|null>(null);
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
-
     const imageUrls = await saveImages();
     const data: Ad = {
       title:values.title,
@@ -143,6 +137,7 @@ function CreateAdPage() {
                 />
               )}
             />
+            <p>Валюта</p>
             <Dropdown optionsEnum={Currencies} register={register('currency')}/>
           </div>
         </div>
@@ -214,13 +209,7 @@ function CreateAdPage() {
                   control={control}
                   defaultValue={item.type}
                   render={({ field }) => (
-                    <select {...field} className={styles.select}>
-                      {Object.keys(ContactTypes).map((key) => (
-                        <option key={key} value={key}>
-                          {ContactTypes[key as keyof typeof ContactTypes]}
-                        </option>
-                      ))}
-                    </select>
+                    <Dropdown optionsEnum={ContactTypes} {...field} className={styles.select}/>
                   )}
                 />
                 <p>Значение</p>
@@ -236,18 +225,18 @@ function CreateAdPage() {
                     />
                   )}
                 />
-                <Button type="button" onClick={() => remove(index)} size={SizeButton.SMALL}>
-                  Удалить контакт
+                <Button className={styles.removeContactButton} type="button" onClick={() => remove(index)} size={SizeButton.MEDIUM}>
+                  <DeleteForeverIcon />
                 </Button>
               </div>
             ))}
-            <Button className={styles.addButton} type="button" onClick={() => append({ type: ContactTypes.WHATSAPP, value: '' })} size={SizeButton.MEDIUM}>
+            <Button className={styles.addContactButton} type="button" onClick={() => append({ type: ContactTypes.WhatsApp, value: '' })} size={SizeButton.MEDIUM}>
               Добавить контакт
             </Button>
           </div>
         </div>
 
-        <Button size={SizeButton.MEDIUM} type='submit'>Создать</Button>
+        <Button className={styles.submitButton} size={SizeButton.LARGE} type='submit'>Создать объявление</Button>
       </form>
     </div >
   );

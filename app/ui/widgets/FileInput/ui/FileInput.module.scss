@@ -1,6 +1,7 @@
 .fileInputContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .fileInput {
@@ -16,6 +17,7 @@
     flex-wrap: wrap;
     gap: 10px;
     border: solid 3px var(--primary-color);
+    width: 100%;
     min-width: 300px;
     min-height: 200px;
     border-radius: 6px;

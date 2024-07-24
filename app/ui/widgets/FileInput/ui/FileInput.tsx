@@ -5,7 +5,6 @@ import cn from 'clsx';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/app/ui/shared/Button';
-import { ImagesearchRollerRounded } from '@mui/icons-material';
 
 interface IFileInputProps {
   className?: string;

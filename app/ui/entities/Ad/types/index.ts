@@ -17,6 +17,13 @@ export interface Contact {
 }
 
 export enum ContactTypes {
-    'WHATSAPP'='WHATSAPP',
-    'TELEGRAM' = 'TELEGRAM'
+    'WhatsApp'= 'WhatsApp',
+    'Telegram' = 'Telegram',
+    'Phone' = 'Phone'
+}
+
+export enum Currencies {
+  'RUB'= 'RUB',
+  'USD' = 'USD',
+  'THB' = 'THB'
 }

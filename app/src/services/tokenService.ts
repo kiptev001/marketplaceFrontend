@@ -5,7 +5,7 @@ class TokenService {
   async generateTokens(payload:Record<string,unknown> ) {
     const accessToken = await new jose.SignJWT(payload)
       .setProtectedHeader({ alg: 'HS256' })
-      .setExpirationTime('30m')
+      .setExpirationTime('90m')
       .sign(new TextEncoder().encode(process.env.JWT_ACCESS_SECRET));
 
     const refreshToken = await new jose.SignJWT(payload)

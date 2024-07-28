@@ -4,21 +4,25 @@ import cls from './Navbar.module.scss';
 import { Button, ThemeButton } from '@/app/ui/shared/Button';
 import { Favorite, ShoppingCart } from '@mui/icons-material';
 import { AppLink, ThemeAppLink } from '@/app/ui/shared/AppLink';
-import App from 'next/app';
+import { toast } from 'react-toastify';
 import api from '@/app/src/http';
+import { useAuth } from '@/app/ui/providers/AuthProvider';
 
 export interface NavbarProps {
   readonly className?: string;
 }
 
 function Navbar({ className }: NavbarProps) {
+  const auth = useAuth();
+
   const handleLogout = async () =>{
     try {
-      const response = await api.post('/users/logout');
+      await api.post('/users/logout');
       localStorage.removeItem('token');
-      console.log(response);
+      auth.logout();
+      toast.success('Success logout', {position:'bottom-left'});
     } catch (error) {
-      console.log(error);
+      toast.error('Error logout', {position:'bottom-left'});
     }
   };
 
@@ -30,15 +34,16 @@ function Navbar({ className }: NavbarProps) {
       <AppLink href="/">
         <ShoppingCart/>
       </AppLink>
-      <AppLink theme={ThemeAppLink.SECONDARY} href="/registration">Вход и регистрация</AppLink>
+      {!auth.user && <AppLink theme={ThemeAppLink.SECONDARY} href="/registration">Вход и регистрация</AppLink>}
       <AppLink theme={ThemeAppLink.SECONDARY} href="/createAd">Разместить объявление</AppLink>
-      <Button
+      <div>{auth.user?.email}</div>
+      {auth.user && <Button
         className={cls.links}
         theme={ThemeButton.CLEAR}
         onClick={handleLogout}
       >
         Выйти
-      </Button>
+      </Button>}
     </div>
   );
 }

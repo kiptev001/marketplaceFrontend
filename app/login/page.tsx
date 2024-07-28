@@ -6,7 +6,8 @@ import axios from 'axios';
 import api from '../src/http/index';
 import { useForm, SubmitHandler,Controller } from 'react-hook-form';
 import styles from '../registration/registration.module.scss';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { useAuth } from '../ui/providers/AuthProvider';
 
 type Inputs = {
   email: string
@@ -21,6 +22,7 @@ function LoginPage  () {
     control,
     formState: { errors },
   } = useForm<Inputs>();
+  const {login} = useAuth();
 
   const onSubmit: SubmitHandler<Inputs> = async ({email, password}) => {
     try {
@@ -29,8 +31,8 @@ function LoginPage  () {
         password
       });
       toast.success('Success login',{position:'bottom-left'});
-
       localStorage.setItem('token', response.data.accessToken);
+      login();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.error, {position:'bottom-left'});

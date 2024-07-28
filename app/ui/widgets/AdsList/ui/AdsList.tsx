@@ -4,6 +4,7 @@ import { AdCard } from '@/app/ui/entities/Ad/ui/AdCard/index';
 import api from '@/app/src/http/index';
 import { useEffect, useState } from 'react';
 import { Ad } from '@/app/ui/entities/Ad/types';
+import { AxiosResponse } from 'axios';
 
 export default function AdsList(){
   const [ads, setAds] = useState<Ad[]>([]);
@@ -13,10 +14,8 @@ export default function AdsList(){
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const response = await api.get<{ data: Ad[] }>('/ads/getMany');
-        //@ts-ignore
+        const response: AxiosResponse<Ad[]> = await api.get<Ad[]>('/ads/getMany');
         setAds(response.data);
-        const userResponse = await api.get('/users/getUser?email=reactcrwk@rambler.ru');
       } catch (err) {
         setError('Failed to fetch ads');
         console.error(err);

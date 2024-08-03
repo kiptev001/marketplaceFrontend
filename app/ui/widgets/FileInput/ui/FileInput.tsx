@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { useState, useRef, Dispatch, SetStateAction, SyntheticEvent } from 'react';
 import styles from './FileInput.module.scss';
 import cn from 'clsx';
 import Image from 'next/image';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/app/ui/shared/Button';
+import ClearIcon from '@mui/icons-material/Clear';
+import { Button, SizeButton, ThemeButton } from '@/app/ui/shared/Button';
 
 interface IFileInputProps {
   className?: string;
@@ -17,6 +17,7 @@ interface IFileInputProps {
 
 const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, accept, register, setImages, images }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [mainImage, setMainImage]=useState('');
 
   const handleClick = () => {
     inputRef?.current?.click();
@@ -29,12 +30,31 @@ const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, acc
     }
   };
 
+  const handleDeletePicture = (index: number) => (e: SyntheticEvent) => {
+    e.stopPropagation();
+    setImages && setImages(prevImages => prevImages?.filter((_, i) => i !== index) || null);
+  };
+
+  const handleSetMainPicture = (index: number) => (e: SyntheticEvent) => {
+    e.stopPropagation();
+    setImages && setImages(prevImages => {
+      if (!prevImages) return null;
+      const newImages = [...prevImages];
+      const [mainImage] = newImages.splice(index, 1);
+      setMainImage(mainImage.name);
+      return [mainImage, ...newImages];
+    });
+  };
+
   return (
     <div className={cn(styles.fileInputContainer, {}, [className])}>
       <div className={styles.selectedFiles}>
         {images && (
           Array.from(images).map((file, index) => (
-            <div className={styles.imagePreview} key={index}>
+            <div className={cn(styles.imagePreview,file.name===mainImage?styles.mainImage:null)} key={index} onClick={handleSetMainPicture(index)}>
+              <Button theme={ThemeButton.CLEAR} size={SizeButton.SMALL} className={styles.deleteImageButton} onClick={handleDeletePicture(index)}>
+                <ClearIcon/>
+              </Button>
               <Image fill alt='Image' src={URL.createObjectURL(file)} className={styles.selectedFile} />
             </div>
           )))}

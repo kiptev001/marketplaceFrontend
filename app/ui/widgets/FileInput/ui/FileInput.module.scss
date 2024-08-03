@@ -44,3 +44,16 @@
 .selectedFile {
     object-fit: contain;
 }
+
+.deleteImageButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    color: var(--dark-red);
+    border-radius: 5px;
+}
+
+.mainImage {
+    border: solid 3px var(--primary-color);
+}

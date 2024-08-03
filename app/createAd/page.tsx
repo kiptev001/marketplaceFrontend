@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
@@ -188,6 +188,8 @@ function CreateAdPage() {
         <div className={styles.fieldWrapper}>
           <div className={styles.fieldWrapperText}>
             <p>Выберите одну или несколько фотографий</p>
+            <p>Нажмите на фото чтобы выбрать её как главную</p>
+            <p>Она будет отображена на странице поиска</p>
           </div>
           <div className={styles.fieldWrapperInput}>
             <FileInput images={images} setImages={setImages} accept="image/*" multiple register={register}/>

@@ -32,7 +32,7 @@ class AdModel {
     const contactsJson = JSON.stringify(ad.contacts);
     const result = await sql<Ad>`
     INSERT INTO ads (title, price, createdAt, location, description, images, userId, currency, contacts) 
-    VALUES (${ad.title}, ${ad.price}, CURRENT_TIMESTAMP, ${ad.location}, ${ad.description}, ${imagesArray}, ${ad.userId}, ${ad.currency}, ${contactsJson}::jsonb)
+    VALUES (${ad.title}, ${ad.price}, CURRENT_TIMESTAMP, ${ad.location}, ${ad.description}, ${imagesArray}, ${ad.userid}, ${ad.currency}, ${contactsJson}::jsonb)
     RETURNING *;
   `;
 

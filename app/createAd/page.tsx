@@ -46,7 +46,6 @@ function CreateAdPage() {
       currency:values.currency,
       location:values.location,
       description:values.description,
-      userId: 1,
       images: imageUrls,
       contacts: values.contacts
     };

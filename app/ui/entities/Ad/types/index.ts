@@ -1,6 +1,6 @@
 export interface Ad {
     id?:number;
-    userId: number;
+    userid?: number;
     title: string;
     price: number;
     currency:string;

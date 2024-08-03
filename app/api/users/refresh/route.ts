@@ -7,7 +7,7 @@ interface DatabaseError extends Error {
   code?: string;
 }
 
-export async function POST(request:NextRequest ) {
+export async function GET(request:NextRequest ) {
   try {
     const cookie = cookies().get('refreshToken');
     if(!cookie)return NextResponse.redirect(process.env.CLIENT_URL || '/');

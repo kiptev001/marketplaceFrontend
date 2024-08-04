@@ -11,6 +11,9 @@ import { Dropdown } from '../ui/shared/Dropdown';
 import { FileInput } from '../ui/widgets/FileInput';
 import { ContactTypes } from '../ui/entities/Ad/types';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useAuth } from '../ui/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 type Inputs = {
   title: string
@@ -31,6 +34,12 @@ function CreateAdPage() {
     control,
     formState: { errors },
   } = useForm<Inputs>();
+  const auth = useAuth();
+  const router = useRouter();
+  if(!auth.user){
+    router.push('/login');
+    toast.warn('Зарегистрируйтесь или войдите для создания объявления',{position:'bottom-left'});
+  }
 
   const { fields, append, remove } = useFieldArray({
     control,

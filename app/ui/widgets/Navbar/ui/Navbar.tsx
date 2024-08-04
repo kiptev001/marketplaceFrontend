@@ -31,9 +31,6 @@ function Navbar({ className }: NavbarProps) {
       <AppLink href="/">
         <Favorite/>
       </AppLink>
-      <AppLink href="/">
-        <ShoppingCart/>
-      </AppLink>
       {!auth.user && <AppLink theme={ThemeAppLink.SECONDARY} href="/registration">Вход и регистрация</AppLink>}
       <AppLink theme={ThemeAppLink.SECONDARY} href="/createAd">Разместить объявление</AppLink>
       <div>{auth.user?.email}</div>

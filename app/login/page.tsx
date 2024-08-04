@@ -8,6 +8,7 @@ import { useForm, SubmitHandler,Controller } from 'react-hook-form';
 import styles from '../registration/registration.module.scss';
 import { toast } from 'react-toastify';
 import { useAuth } from '../ui/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 type Inputs = {
   email: string
@@ -23,6 +24,7 @@ function LoginPage  () {
     formState: { errors },
   } = useForm<Inputs>();
   const {login} = useAuth();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async ({email, password}) => {
     try {
@@ -33,6 +35,7 @@ function LoginPage  () {
       toast.success('Success login',{position:'bottom-left'});
       localStorage.setItem('token', response.data.accessToken);
       login();
+      router.push('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.error, {position:'bottom-left'});

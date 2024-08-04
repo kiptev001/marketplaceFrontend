@@ -21,6 +21,7 @@ export async function POST(request:NextRequest ) {
     if (!userData) {
       return NextResponse.json(null, {status:401});
     }
+
     return NextResponse.json(userData);
   } catch (error) {
     const dbError = error as DatabaseError;

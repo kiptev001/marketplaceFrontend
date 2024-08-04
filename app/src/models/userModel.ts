@@ -14,9 +14,9 @@ class UserModel {
     return { user: result.rows[0], status: 200 };
   }
 
-  async findById(email:string){
+  async findById(id:string){
     const result = await sql`
-      SELECT * FROM users WHERE email = ${email};
+      SELECT * FROM users WHERE id = ${id};
     `;
 
     if (result.rowCount === 0) {

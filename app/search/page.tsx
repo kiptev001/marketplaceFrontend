@@ -2,7 +2,11 @@ import React from 'react';
 import api from '../src/http';
 import { AdCard } from '../ui/entities/Ad/ui/AdCard';
 
-const SearchPage = async ({searchParams}) => {
+interface SearchPageProps {
+  searchParams: Record<string,string>
+}
+
+const SearchPage = async ({searchParams}:SearchPageProps) => {
   const response = await fetch(`http://localhost:3000/api/ads/search?query=${searchParams.query}`);
   const result = await response.json();
 

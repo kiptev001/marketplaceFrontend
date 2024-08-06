@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { IDBResponse, ISQLResponse } from '../types';
+import { IDBResponse } from '../types';
 import { Ad } from '@/app/ui/entities/Ad/types/index';
 
 class AdModel {
@@ -39,16 +39,29 @@ class AdModel {
     return { data: result.rows[0] ,status: 200 };
   }
 
-  //   async saveToken(userId:number, refreshToken:string){
-  //     const result = await sql`UPDATE tokens SET refreshtoken = ${refreshToken} WHERE userId = ${userId} RETURNING *;`;
+  async search(query: string): Promise<IDBResponse<Ad[]>> {
+    const result = await sql<Ad>`
+      SELECT *,
+        CASE 
+          WHEN title ILIKE ${'%' + query + '%'} THEN 1
+          WHEN description ILIKE ${'%' + query + '%'} THEN 2
+          WHEN title ILIKE ${'%' + query.split(' ')[0] + '%'} OR description ILIKE ${'%' + query.split(' ')[0] + '%'} THEN 3
+          ELSE 4
+        END as priority
+      FROM ads
+      WHERE title ILIKE ${'%' + query + '%'}
+      OR description ILIKE ${'%' + query + '%'}
+      OR title ILIKE ${'%' + query.split(' ')[0] + '%'}
+      OR description ILIKE ${'%' + query.split(' ')[0] + '%'}
+      ORDER BY priority, title ILIKE ${'%' + query + '%'} DESC, description ILIKE ${'%' + query + '%'} DESC;
+    `;
 
-  //     return {refreshToken: result.rows[0], status: 200};
-  //   }
+    if (result.rowCount === 0) {
+      return { error: 'No ads found' };
+    }
 
-//   async deleteOne(refreshToken:string){
-//     const result = await sql`DELETE FROM tokens WHERE refreshToken = ${refreshToken};`;
-//     return result;
-//   }
+    return { data: result.rows, status: 200 };
+  }
 }
 
 const model = new AdModel();

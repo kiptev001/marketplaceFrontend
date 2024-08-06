@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     }
 
     const response = await AdModel.search(query);
-    console.log('MODEL RESPONSE = ',response);
+
     if (response.error) {
       return NextResponse.json({ error: response.error }, { status: 404 });
     }

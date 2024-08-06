@@ -8,7 +8,7 @@ import cn from 'clsx';
 
 export interface AdCardProps {
     ad: Ad;
-    className: string;
+    className?: string;
 }
 
 export default function AdCard ({ad,className}:AdCardProps){

@@ -7,7 +7,7 @@ interface SearchPageProps {
 }
 
 const SearchPage = async ({searchParams}:SearchPageProps) => {
-  const response = await fetch(`http://localhost:3000/api/ads/search?query=${searchParams.query}`);
+  const response = await fetch(`https://thaisell.net/api/ads/search?query=${searchParams.query}`);
   const result = await response.json();
 
   return (

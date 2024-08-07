@@ -72,7 +72,7 @@ function CreateAdPage() {
         body: formdata,
       };
 
-      const response = await fetch('https://api.thaisell.net/upload', requestOptions);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}/upload`, requestOptions);
       const { url } = await response.json();
       return url;
     };

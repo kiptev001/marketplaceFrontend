@@ -22,7 +22,7 @@ export default function SearchBar() {
   );
 
   const handleSearch = () =>{
-    router.push('http://localhost:3000/search' + '?' + createQueryString('query', query));
+    router.push(process.env.NEXT_PUBLIC_CLIENT_URL + '/search' + '?' + createQueryString('query', query));
   };
 
   return (

@@ -2,12 +2,9 @@
 import axios from 'axios';
 import {IAuthResponse} from '../types/index';
 
-export const API_URL = 'https://www.thaisell.net/api';
-const LOCAL_API_URL = 'http://localhost:3000/api';
-
 const api = axios.create({
   withCredentials: true,
-  baseURL: API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 api.interceptors.request.use((config)=>{
@@ -46,7 +43,7 @@ api.interceptors.response.use(
     ) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get<IAuthResponse>(`${API_URL}/users/refresh`, { withCredentials: true });
+        const response = await axios.get<IAuthResponse>(`${process.env.NEXT_PUBLIC_API_URL}/users/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.accessToken);
         return api.request(originalRequest);
       } catch (err) {

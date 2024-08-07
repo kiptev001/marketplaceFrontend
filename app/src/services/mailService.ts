@@ -14,7 +14,7 @@ class MailService {
     });
   }
   async sendActivationMail( to:string, link:string ){
-    const fullLink = `http://localhost:3000/api/activation/${link}`;
+    const fullLink = `${process.env.API_URL}/activation/${link}`;
     //@ts-ignore
     this.transporter.sendMail({
       from: process.env.SMTP_USER,

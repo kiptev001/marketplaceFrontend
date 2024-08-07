@@ -6,7 +6,6 @@ import { Ad } from '@/app/ui/entities/Ad/types';
 import Image from 'next/image';
 import cn from 'clsx';
 import formatDate from '@/app/src/helpers/formatDate';
-import { Contacts } from '@mui/icons-material';
 
 export default function AdPage({ params }: { params: { id: string } }){
   const [ad,setAd]=useState<Ad | null>(null);
@@ -31,10 +30,10 @@ export default function AdPage({ params }: { params: { id: string } }){
       </div>
       { ad?.images && ad?.images[0]!== 'undefined' &&<div className={styles.imageBlock}>
         <div className={styles.mainImage}>
-          {ad?.images && ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={`https://api.thaisell.net${selectedPhoto}`}/>}
+          {ad?.images && ad?.images[0]&&<Image className={styles.image} fill alt='Image' src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${selectedPhoto}`}/>}
         </div>
         <div className={styles.allImages}>
-          {ad?.images && ad?.images?.length > 1 && ad?.images.map((url)=><Image onClick={()=>setSelectedPhoto(url)} className={cn(styles.image,url===selectedPhoto? styles.selected:null)} width={150} height={150} key={url} alt='Image' src={`https://api.thaisell.net${url}`}/>)}
+          {ad?.images && ad?.images?.length > 1 && ad?.images.map((url)=><Image onClick={()=>setSelectedPhoto(url)} className={cn(styles.image,url===selectedPhoto? styles.selected:null)} width={150} height={150} key={url} alt='Image' src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${url}`}/>)}
         </div>
       </div>}
       <h2 className={styles.heading}>Описание</h2>

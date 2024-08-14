@@ -1,6 +1,5 @@
 import React from 'react';
-import api from '../src/http';
-import { AdCard } from '../ui/entities/Ad/ui/AdCard';
+import { SearchAdCard } from '../ui/entities/Ad/ui/SearchAdCard/index';
 
 interface SearchPageProps {
   searchParams: Record<string,string>
@@ -10,12 +9,14 @@ const SearchPage = async ({searchParams}:SearchPageProps) => {
   const response = await fetch(`${process.env.API_URL}/ads/search?query=${searchParams.query}`);
   const result = await response.json();
 
+  if(result.error)return <h2>Объявлений по запросу &quot;{searchParams.query}&quot; не найдено</h2>;
+
   return (
     <>
-      <div>SearchPage</div>
-      {!result.error && [...result].map((ad)=>{
+      <h2>Объявления по запросу &quot;{searchParams.query}&quot;: {result.length}</h2>
+      { [...result].map((ad)=>{
         return(
-          <AdCard key={ad.id} ad={ad}/>
+          <SearchAdCard key={ad.id} ad={ad}/>
         );
       })}
     </>

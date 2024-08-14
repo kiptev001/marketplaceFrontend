@@ -1,0 +1,65 @@
+.Card {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    padding: 15px;
+
+    &:hover {
+        background-color: var(--super-light-grey-color);
+        border-radius: 5px;
+    }
+
+    .ImageBlock {
+        position: relative;
+        width: 230px;
+        height: 100%;
+
+        .Image {
+            object-fit: cover;
+        }
+    }
+
+    .InfoBlock {
+        width: 100%;
+        margin-left: 15px;
+        font-size: var(--font-size-m);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .Title {
+            font-weight: 900;
+            font-size: var(--font-size-l);
+            width: fit-content;
+        }
+
+        .PriceBlock {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .Description {
+            font-size: var(--font-size-m);
+            color: var(--light-grey-color);
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
+
+        .ImageBlock {
+            width: 100%;
+            height: 200px;
+        }
+
+        .InfoBlock {
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    }
+}

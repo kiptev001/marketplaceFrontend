@@ -10,3 +10,12 @@
   gap: 20px;
   padding: 0 150px;
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    align-items: center;
+    font-size: var(--font-size-s);
+    padding: 0 5px 0 0;
+    gap: 10px;
+  }
+}

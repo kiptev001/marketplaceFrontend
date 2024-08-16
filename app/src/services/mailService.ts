@@ -104,7 +104,7 @@ class MailService {
         <div class="content">
             <p>Вы получили это письмо потому что зарегистрировались на сайте www.thaisell.net.</p>
             <p>Нажмите на кнопку ниже чтобы подтвердить регистрацию.</p>
-            <a href=${fullLink} target="_blank">Подтвердить</a>
+            <a href="${fullLink}" target="_blank">Подтвердить</a>
         </div>
         <div class="footer">
             <p>Если вы не регистрировались,- просто проигнорируйте это письмо.</p>

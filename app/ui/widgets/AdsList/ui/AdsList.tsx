@@ -1,13 +1,13 @@
-import { GetStaticProps } from 'next';
 import styles from './AdsList.module.scss';
 import { AdCard } from '@/app/ui/entities/Ad/ui/AdCard/index';
-import api from '@/app/src/http/index';
 import { Ad } from '@/app/ui/entities/Ad/types';
 
 export default async function AdsList() {
-  const response = await fetch('https://thaisell.net/api/ads/getMany');
+  const response = await fetch(`${process.env.API_URL}/ads/getMany`, { cache: 'no-store' });
+  console.log('API_URL = ',process.env.API_URL);
+  console.log('RESPONSE = ',response);
   const ads = await response.json();
-
+  console.log('ADS = ',ads);
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.title}>Рекомендации для вас</h5>

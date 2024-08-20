@@ -4,10 +4,8 @@ import { Ad } from '@/app/ui/entities/Ad/types';
 
 export default async function AdsList() {
   const response = await fetch(`${process.env.API_URL}/ads/getMany`, { cache: 'no-store' });
-  console.log('API_URL = ',process.env.API_URL);
-  console.log('RESPONSE = ',response);
   const ads = await response.json();
-  console.log('ADS = ',ads);
+
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.title}>Рекомендации для вас</h5>

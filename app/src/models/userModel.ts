@@ -44,7 +44,7 @@ class UserModel {
       throw ApiError.BadRequest('Incorrect activation link');
     }
     const result2 = await sql`UPDATE users SET isActivated = TRUE WHERE activationLink = ${activationLink};`;
-    return {status: 200};
+    return { status: 200 };
   }
 
   async findAll(){

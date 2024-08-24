@@ -1,45 +1,56 @@
-// import { supabase } from './database';
+import { supabase } from './database';
 
-// class TokenModel {
-//   async findOneByUserId(userId:number){
-//     const response = await supabase
-//       .from('tokens')
-//       .select()
-//       .eq('userid', userId);
+class TokenModel {
+  async findOneByUserId(userId:string){
+    const response = await supabase
+      .from('tokens')
+      .select()
+      .eq('userid', userId);
 
-//     return response;
-//   }
+    return response;
+  }
 
-//   async create(userId:number, refreshToken:string){
-//     const response = await supabase
-//       .from('tokens')
-//       .insert({ userid: userId, refreshtoken: refreshToken })
-//       .select();
+  async create(userId:string, refreshToken:string){
+    const response = await supabase
+      .from('tokens')
+      .insert({ userid: userId, refreshtoken: refreshToken })
+      .select();
 
-//     return response;
-//   }
+    return response;
+  }
 
-//   async findOne(refreshToken:string){
-//     const response = await supabase
-//       .from('tokens')
-//       .select()
-//       .eq('refreshtoken', refreshToken);
+  async findOne(refreshToken:string){
+    const response = await supabase
+      .from('tokens')
+      .select()
+      .eq('refreshtoken', refreshToken);
 
-//     return response;
-//   }
+    return response;
+  }
 
-//   async saveToken(userId:number, refreshToken:string){
-//     const result = await sql`UPDATE tokens SET refreshtoken = ${refreshToken} WHERE userId = ${userId} RETURNING *;`;
+  async saveToken(userId:string, refreshToken:string) {
+    const response = await supabase
+      .from('tokens')
+      .update({ refreshtoken: refreshToken })
+      .eq('userid', userId).select();
 
-//     return { refreshToken: result.rows[0], status: 200 };
-//   }
+    return response;
+  }
 
-//   async deleteOne(refreshToken:string){
-//     const result = await sql`DELETE FROM tokens WHERE refreshToken = ${refreshToken};`;
-//     return result;
-//   }
-// }
+  async deleteOne(refreshToken:string) {
+    const response = await supabase
+      .from('tokens')
+      .delete()
+      .eq('refreshtoken', refreshToken);
 
-// const model = new TokenModel();
+    if (response?.error) {
+      throw response?.error;
+    }
 
-// export default model;
+    return response;
+  }
+}
+
+const model = new TokenModel();
+
+export default model;

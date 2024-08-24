@@ -1,8 +1,5 @@
-import { cookies } from 'next/headers';
-import UserService from '../../../src/services/userService';
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { ApiError } from '@/app/src/services/apiError';
 import TokenService from '@/app/src/services/tokenService';
 
 interface DatabaseError extends Error {

@@ -1,4 +1,3 @@
-import tokenModel from '@/app/src/models/supabase/tokenModel';
 import { NextResponse } from 'next/server';
 import UserModel from '@/app/src/models/supabase/userModel';
 

@@ -14,7 +14,7 @@ class UserModel {
     return response;
   }
 
-  async findById(id: string) {
+  async findById(id: string):Promise<PostgrestResponse<IUser>> {
     const response = await supabase
       .from('users')
       .select('*')
@@ -23,7 +23,7 @@ class UserModel {
     return response;
   }
 
-  async create(email: string, password: string, activationlink: string) {
+  async create(email: string, password: string, activationlink: string):Promise<PostgrestResponse<IUser>> {
     const response = await supabase
       .from('users')
       .insert({ email, password, activationlink })
@@ -55,7 +55,7 @@ class UserModel {
     return { status: 204 };
   }
 
-  async findAll() {
+  async findAll():Promise<PostgrestResponse<IUser>> {
     const response = await supabase
       .from('users')
       .select('*');

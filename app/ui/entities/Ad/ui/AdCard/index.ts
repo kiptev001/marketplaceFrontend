@@ -1,3 +1,3 @@
 import AdCard from './ui/AdCard';
 
-export {AdCard};
+export { AdCard };

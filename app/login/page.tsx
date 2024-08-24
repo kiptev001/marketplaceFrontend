@@ -23,22 +23,22 @@ function LoginPage  () {
     control,
     formState: { errors },
   } = useForm<Inputs>();
-  const {login} = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<Inputs> = async ({email, password}) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       const response = await api.post('/users/login', {
         email,
         password
       });
-      toast.success('Success login',{position:'bottom-left'});
+      toast.success('Success login',{ position:'bottom-left' });
       localStorage.setItem('token', response.data.accessToken);
       login();
       router.push('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data.error, {position:'bottom-left'});
+        toast.error(error.response?.data.error, { position:'bottom-left' });
         console.error('Login error:', error.response?.data || error.message);
       } else {
         console.error('Unexpected error:', error);
@@ -72,7 +72,7 @@ function LoginPage  () {
         />
         <Controller
           name="password"
-          rules={{required:'Введите пароль', minLength:{value:3, message:'Введите пароль не менее 3 символов'}}}
+          rules={{ required:'Введите пароль', minLength:{ value:3, message:'Введите пароль не менее 3 символов' } }}
           control={control}
           defaultValue=""
           render={({ field }) => (

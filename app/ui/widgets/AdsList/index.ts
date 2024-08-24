@@ -1,3 +1,3 @@
 import AdsList from './ui/AdsList';
 
-export {AdsList};
+export { AdsList };

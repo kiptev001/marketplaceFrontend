@@ -23,7 +23,7 @@ function RegistrationPage  () {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async({email, password}) => {
+  const onSubmit: SubmitHandler<Inputs> = async({ email, password }) => {
     try {
       const response = await api.post('/users/registration', {
         email,
@@ -69,7 +69,7 @@ function RegistrationPage  () {
         />
         <Controller
           name="password"
-          rules={{required:'Введите пароль', minLength:{value:3, message:'Введите пароль не менее 3 символов'}}}
+          rules={{ required:'Введите пароль', minLength:{ value:3, message:'Введите пароль не менее 3 символов' } }}
           control={control}
           defaultValue=""
           render={({ field }) => (

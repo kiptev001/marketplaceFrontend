@@ -9,7 +9,7 @@ interface IDropdownProps<T extends string> {
   register?: any;
 }
 
-const Dropdown = <T extends string>({ className, optionsEnum, register, ...restProps}: IDropdownProps<T>) => {
+const Dropdown = <T extends string>({ className, optionsEnum, register, ...restProps }: IDropdownProps<T>) => {
   const options = Object.keys(optionsEnum) as T[];
 
   return (

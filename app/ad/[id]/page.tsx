@@ -12,7 +12,7 @@ export default function AdPage({ params }: { params: { id: string } }){
   const [selectedPhoto, setSelectedPhoto] = useState('');
 
   const getAd = useCallback( async ()=>{
-    const response = await api.get('/ads/getOne',{params:{id:params.id}});
+    const response = await api.get('/ads/getOne',{ params:{ id:params.id } });
     setAd(response.data);
     setSelectedPhoto(response.data.images[0]);
   },[params.id]);

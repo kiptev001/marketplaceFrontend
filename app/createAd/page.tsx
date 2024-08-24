@@ -38,7 +38,7 @@ function CreateAdPage() {
   const router = useRouter();
   if(!auth.user){
     router.push('/login');
-    toast.warn('Зарегистрируйтесь или войдите для создания объявления',{position:'bottom-left'});
+    toast.warn('Зарегистрируйтесь или войдите для создания объявления',{ position:'bottom-left' });
   }
 
   const { fields, append, remove } = useFieldArray({

@@ -34,4 +34,4 @@ const AppLink: FC<AppLinkProps> = props => {
   );
 };
 
-export {AppLink};
+export { AppLink };

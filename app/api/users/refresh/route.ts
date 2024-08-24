@@ -15,7 +15,7 @@ export async function GET(request:NextRequest ) {
     //@ts-ignore
     cookies().set('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
 
-    return NextResponse.json(userData,{status:200});
+    return NextResponse.json(userData,{ status:200 });
 
   } catch (error) {
     const dbError = error as DatabaseError;

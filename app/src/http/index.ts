@@ -1,6 +1,6 @@
 'use client';
 import axios from 'axios';
-import {IAuthResponse} from '../types/index';
+import { IAuthResponse } from '../types/index';
 
 const api = axios.create({
   withCredentials: true,

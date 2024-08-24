@@ -19,7 +19,7 @@ export async function POST(request:NextRequest ) {
     }
     const userData = await TokenService.validateAccessToken(accessToken);
     if (!userData) {
-      return NextResponse.json(null, {status:401});
+      return NextResponse.json(null, { status:401 });
     }
 
     return NextResponse.json(userData);

@@ -62,7 +62,7 @@ const Input = (props: IInputProps) => {
   return (
     <input
       {...rest}
-      className={classNames(styles.input, {[styles[theme]]: true,[styles[size]]: true,}, [className, styles.theme])}
+      className={classNames(styles.input, { [styles[theme]]: true,[styles[size]]: true, }, [className, styles.theme])}
       onChange={onChangeHandler}
       ref={inputRef}
       type={type}

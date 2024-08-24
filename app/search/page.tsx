@@ -5,7 +5,7 @@ interface SearchPageProps {
   searchParams: Record<string,string>
 }
 
-const SearchPage = async ({searchParams}:SearchPageProps) => {
+const SearchPage = async ({ searchParams }:SearchPageProps) => {
   const response = await fetch(`${process.env.API_URL}/ads/search?query=${searchParams.query}`);
   const result = await response.json();
 

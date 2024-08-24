@@ -15,7 +15,7 @@ class UserService {
 
     const hashedPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid();
-    const {user} = await UserModel.create( email, hashedPassword, activationLink );
+    const { user } = await UserModel.create( email, hashedPassword, activationLink );
 
     await MailService.sendActivationMail(email,activationLink);
 
@@ -33,7 +33,7 @@ class UserService {
   }
 
   async login(email:string, password:string) {
-    const {user, status} = await UserModel.findOne( email );
+    const { user, status } = await UserModel.findOne( email );
     if (!user) {
       throw ApiError.BadRequest('Incorrect email');
     }
@@ -65,12 +65,12 @@ class UserService {
       return ApiError.UnauthorizedError();
     }
     const userData = await tokenService.validateRefreshToken(refreshToken);
-    const {refreshToken:tokenFromDb} = await tokenService.findToken(refreshToken);
+    const { refreshToken:tokenFromDb } = await tokenService.findToken(refreshToken);
     if (!userData || !tokenFromDb) {
       return ApiError.UnauthorizedError();
     }
     //@ts-ignore
-    const {user:userDataFromDb } = await UserModel.findById(userData.id);
+    const { user:userDataFromDb } = await UserModel.findById(userData.id);
     //@ts-ignore
     const { password, ...userDto } = userDataFromDb;
     const tokens = await tokenService.generateTokens({ ...userDto });

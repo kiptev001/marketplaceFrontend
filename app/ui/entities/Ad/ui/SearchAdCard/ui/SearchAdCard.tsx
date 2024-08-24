@@ -8,7 +8,7 @@ interface SearchAdCardProps {
     ad:Ad
 }
 
-export const SearchAdCard = ({ad}:SearchAdCardProps) => {
+export const SearchAdCard = ({ ad }:SearchAdCardProps) => {
 
   return (
     <div className={styles.Card}>

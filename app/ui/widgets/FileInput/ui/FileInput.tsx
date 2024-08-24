@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, Dispatch, SetStateAction, SyntheticEvent } from 'react';
+import React, { Dispatch, SetStateAction, SyntheticEvent, useRef, useState } from 'react';
 import styles from './FileInput.module.scss';
 import cn from 'clsx';
 import Image from 'next/image';

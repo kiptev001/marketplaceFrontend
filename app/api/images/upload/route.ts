@@ -18,9 +18,9 @@ export async function POST(req:Request,res:NextResponse) {
     const imageUrl = `/${fileName}`;
     //@ts-ignore
     await pump(file.stream(), fs.createWriteStream(filePath));
-    return NextResponse.json({ status:'success',imageUrl:imageUrl });
+    return NextResponse.json({ status: 'success',imageUrl: imageUrl });
   }
   catch (e) {
-    return  NextResponse.json({ status:'fail',data:e });
+    return  NextResponse.json({ status: 'fail',data: e });
   }
 }

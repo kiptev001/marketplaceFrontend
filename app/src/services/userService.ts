@@ -29,7 +29,7 @@ class UserService {
       activationlink: user.activationlink
     };
 
-    return { ...tokens, user:userDto };
+    return { ...tokens, user: userDto };
   }
 
   async login(email:string, password:string) {
@@ -65,12 +65,12 @@ class UserService {
       return ApiError.UnauthorizedError();
     }
     const userData = await tokenService.validateRefreshToken(refreshToken);
-    const { refreshToken:tokenFromDb } = await tokenService.findToken(refreshToken);
+    const { refreshToken: tokenFromDb } = await tokenService.findToken(refreshToken);
     if (!userData || !tokenFromDb) {
       return ApiError.UnauthorizedError();
     }
     //@ts-ignore
-    const { user:userDataFromDb } = await UserModel.findById(userData.id);
+    const { user: userDataFromDb } = await UserModel.findById(userData.id);
     //@ts-ignore
     const { password, ...userDto } = userDataFromDb;
     const tokens = await tokenService.generateTokens({ ...userDto });

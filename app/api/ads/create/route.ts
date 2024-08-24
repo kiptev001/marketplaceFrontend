@@ -21,7 +21,7 @@ export async function POST(request:NextRequest ) {
       return NextResponse.json(null, { status: 401 });
     }
     const ad = await request.json();
-    const response = await AdModel.create({ ...ad, userid:userData.id });
+    const response = await AdModel.create({ ...ad, userid: userData.id });
 
     return NextResponse.json(response);
 

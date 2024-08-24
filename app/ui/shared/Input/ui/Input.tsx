@@ -1,11 +1,11 @@
 'use client';
 import React, {
-  memo,
   type InputHTMLAttributes,
-  useState,
+  type MutableRefObject,
+  memo,
   useEffect,
   useRef,
-  type MutableRefObject
+  useState
 } from 'react';
 import styles from './Input.module.scss';
 import classNames from 'clsx';

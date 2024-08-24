@@ -20,9 +20,9 @@ function Navbar({ className }: NavbarProps) {
       await api.post('/users/logout');
       localStorage.removeItem('token');
       auth.logout();
-      toast.success('Success logout', { position:'bottom-left' });
+      toast.success('Success logout', { position: 'bottom-left' });
     } catch (error) {
-      toast.error('Error logout', { position:'bottom-left' });
+      toast.error('Error logout', { position: 'bottom-left' });
     }
   };
 

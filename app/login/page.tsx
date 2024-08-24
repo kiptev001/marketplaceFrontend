@@ -4,7 +4,7 @@ import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
-import { useForm, SubmitHandler,Controller } from 'react-hook-form';
+import { Controller, SubmitHandler,useForm } from 'react-hook-form';
 import styles from '../registration/registration.module.scss';
 import { toast } from 'react-toastify';
 import { useAuth } from '../ui/providers/AuthProvider';
@@ -32,13 +32,13 @@ function LoginPage  () {
         email,
         password
       });
-      toast.success('Success login',{ position:'bottom-left' });
+      toast.success('Success login',{ position: 'bottom-left' });
       localStorage.setItem('token', response.data.accessToken);
       login();
       router.push('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data.error, { position:'bottom-left' });
+        toast.error(error.response?.data.error, { position: 'bottom-left' });
         console.error('Login error:', error.response?.data || error.message);
       } else {
         console.error('Unexpected error:', error);
@@ -72,7 +72,7 @@ function LoginPage  () {
         />
         <Controller
           name="password"
-          rules={{ required:'Введите пароль', minLength:{ value:3, message:'Введите пароль не менее 3 символов' } }}
+          rules={{ required: 'Введите пароль', minLength: { value: 3, message: 'Введите пароль не менее 3 символов' } }}
           control={control}
           defaultValue=""
           render={({ field }) => (

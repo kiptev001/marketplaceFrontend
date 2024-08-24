@@ -1,3 +1,3 @@
-import { ThemeAppLink, AppLink } from './ui/AppLink';
+import { AppLink, ThemeAppLink } from './ui/AppLink';
 
 export { AppLink, ThemeAppLink };

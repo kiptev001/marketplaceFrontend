@@ -22,6 +22,13 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'object-curly-spacing': ['error', 'always'],
+    'key-spacing': [
+      'error',
+      {
+        'beforeColon': false,
+        'afterColon': true
+      }
+    ],
   },
   settings: {
     react: {

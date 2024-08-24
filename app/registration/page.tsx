@@ -4,7 +4,7 @@ import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
-import { useForm, SubmitHandler,Controller } from 'react-hook-form';
+import { Controller, SubmitHandler,useForm } from 'react-hook-form';
 import styles from './registration.module.scss';
 import { toast } from 'react-toastify';
 import { AppLink, ThemeAppLink } from '../ui/shared/AppLink';
@@ -36,7 +36,7 @@ function RegistrationPage  () {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error creating user:', error.response?.data || error.message);
-        toast.error(`Error: ${error.response?.data.error}`,{ position:'bottom-left' });
+        toast.error(`Error: ${error.response?.data.error}`,{ position: 'bottom-left' });
       } else {
         console.error('Unexpected error:', error);
       }
@@ -69,7 +69,7 @@ function RegistrationPage  () {
         />
         <Controller
           name="password"
-          rules={{ required:'Введите пароль', minLength:{ value:3, message:'Введите пароль не менее 3 символов' } }}
+          rules={{ required: 'Введите пароль', minLength: { value: 3, message: 'Введите пароль не менее 3 символов' } }}
           control={control}
           defaultValue=""
           render={({ field }) => (

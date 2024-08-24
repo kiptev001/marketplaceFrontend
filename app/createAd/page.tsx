@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { Input, ThemeInput, SizeInput } from '../ui/shared/Input';
+import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
 import api from '../src/http/index';
 import { Ad, Contact, Currencies } from '../ui/entities/Ad/types';
-import { useForm, Controller, SubmitHandler, useFieldArray } from 'react-hook-form';
+import { Controller, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import styles from './createAd.module.scss';
 import { Dropdown } from '../ui/shared/Dropdown';
 import { FileInput } from '../ui/widgets/FileInput';
@@ -38,7 +38,7 @@ function CreateAdPage() {
   const router = useRouter();
   if(!auth.user){
     router.push('/login');
-    toast.warn('Зарегистрируйтесь или войдите для создания объявления',{ position:'bottom-left' });
+    toast.warn('Зарегистрируйтесь или войдите для создания объявления',{ position: 'bottom-left' });
   }
 
   const { fields, append, remove } = useFieldArray({
@@ -50,11 +50,11 @@ function CreateAdPage() {
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
     const imageUrls = await saveImages();
     const data: Ad = {
-      title:values.title,
+      title: values.title,
       price: parseInt(values.price, 10),
-      currency:values.currency,
-      location:values.location,
-      description:values.description,
+      currency: values.currency,
+      location: values.location,
+      description: values.description,
       images: imageUrls,
       contacts: values.contacts
     };

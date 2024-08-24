@@ -1,10 +1,10 @@
 import {
-  useState,
+  type MutableRefObject,
   type ReactNode,
-  useRef,
-  useEffect,
   useCallback,
-  type MutableRefObject
+  useEffect,
+  useRef,
+  useState
 } from 'react';
 import cls from './Modal.module.scss';
 import classNames from 'clsx';

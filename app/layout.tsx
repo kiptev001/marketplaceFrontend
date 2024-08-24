@@ -4,6 +4,7 @@ import { Navbar } from '@/app/ui/widgets/Navbar';
 import { SearchBar } from '@/app//ui/widgets/SearchBar';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './ui/providers/AuthProvider';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <SpeedInsights/>
         <AuthProvider>
           <Navbar/>
           <SearchBar/>

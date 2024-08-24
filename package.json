@@ -17,6 +17,7 @@
     "@supabase/supabase-js": "^2.45.1",
     "@types/node": "20.5.7",
     "@vercel/postgres": "^0.5.1",
+    "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",

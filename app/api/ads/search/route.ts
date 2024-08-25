@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import AdModel from '../../../src/models/adModel';
-// import AdModel from '@/app/src/models/supabase/adModel';
+// import AdModel from '../../../src/models/adModel';
+import AdModel from '@/app/src/models/supabase/adModel';
 
 interface DatabaseError extends Error {
   code?: string;
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: response.error }, { status: 404 });
     }
 
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data,{ status: 200 });
 
   } catch (error) {
     const dbError = error as DatabaseError;

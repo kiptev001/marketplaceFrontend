@@ -1,7 +1,7 @@
 import { supabase } from './database';
 
 class TokenModel {
-  async findOneByUserId(userId:string){
+  async findOneByUserId(userId:number | string){
     const response = await supabase
       .from('tokens')
       .select()

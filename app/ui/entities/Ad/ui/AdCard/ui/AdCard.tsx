@@ -14,7 +14,7 @@ export interface AdCardProps {
 export default function AdCard ({ ad,className }:AdCardProps){
   return <div className={cn(styles.adCard,{},[className])}>
     <div className={styles.imageWrapper}>
-      {ad?.images && ad?.images[0] !== 'undefined'?<Image className={styles.image} fill src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${ad?.images[0]}`} alt={'Ad main photo'}/>:<div className={styles.noImage}>No Image</div>}
+      {ad?.images && ad?.images?.length > 0 && ad?.images[0] !== 'undefined'?<Image className={styles.image} fill src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${ad?.images[0]}`} alt={'Ad main photo'}/>:<div className={styles.noImage}>No Image</div>}
     </div>
     <div className={styles.description}>
       <AppLink href={`/ad/${ad.id}`} className={styles.title}>{ad.title}</AppLink>

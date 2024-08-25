@@ -2,45 +2,60 @@ import bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
 import MailService from './mailService';
 import tokenService from './tokenService';
-import UserModel from '../../src/models/userModel';
+// import UserModel from '../../src/models/userModel';
+import UserModel from '@/app/src/models/supabase/userModel';
 import { ApiError } from './apiError';
+import { IUserFromDb } from '../types';
 
 class UserService {
   async registration(email:string, password:string) {
-    const candidate = await UserModel.findOne(email);
+    const responseWithCandidate = await UserModel.findOne(email);
 
-    if (candidate.user) {
-      throw ApiError.BadRequest('User with this email is already exists');
+    if (responseWithCandidate.data?.[0]) {
+      throw ApiError.BadRequest('Пользователь с таким адресом электронной почты уже существует.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid();
-    const { user } = await UserModel.create( email, hashedPassword, activationLink );
 
-    await MailService.sendActivationMail(email,activationLink);
+    const responseWithNewUser = await UserModel.create( email, hashedPassword, activationLink );
 
+    if(responseWithNewUser?.data?.[0]){
+      await MailService.sendActivationMail(email,activationLink);
+    }
+
+    const user = responseWithNewUser?.data?.[0];
+    
     const tokens = await tokenService.generateTokens({ ...user });
-    await tokenService.saveToken(user.id, tokens.refreshToken);
+    
+    if(user){
+      await tokenService.saveToken(user?.id, tokens.refreshToken);
+    }
 
     const userDto = {
-      id: user.id,
-      email: user.email,
-      isactivated: user.isactivated,
-      activationlink: user.activationlink
+      id: user?.id,
+      email: user?.email,
+      isactivated: user?.isactivated,
+      activationlink: user?.activationlink
     };
 
     return { ...tokens, user: userDto };
   }
 
   async login(email:string, password:string) {
-    const { user, status } = await UserModel.findOne( email );
+    const responseWithUser = await UserModel.findOne(email);
+    const user = responseWithUser?.data?.[0];
+
     if (!user) {
       throw ApiError.BadRequest('Incorrect email');
     }
+
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
     if (!isPasswordCorrect) {
       throw ApiError.BadRequest('Incorrect password');
     }
+
     const userDto = {
       id: user.id,
       email: user.email,
@@ -62,18 +77,29 @@ class UserService {
 
   async refresh(refreshToken:string) {
     if (!refreshToken) {
-      return ApiError.UnauthorizedError();
+      throw ApiError.UnauthorizedError();
     }
+
     const userData = await tokenService.validateRefreshToken(refreshToken);
+
     const { refreshToken: tokenFromDb } = await tokenService.findToken(refreshToken);
+
     if (!userData || !tokenFromDb) {
-      return ApiError.UnauthorizedError();
+      throw ApiError.UnauthorizedError();
     }
     //@ts-ignore
-    const { user: userDataFromDb } = await UserModel.findById(userData.id);
-    //@ts-ignore
+    const responseWithUserDataFromDb = await UserModel.findById(userData.id);
+
+    const userDataFromDb = responseWithUserDataFromDb?.data?.[0] as IUserFromDb;
+
+    if (!userDataFromDb) {
+      throw ApiError.UnauthorizedError();
+    }
+
     const { password, ...userDto } = userDataFromDb;
+
     const tokens = await tokenService.generateTokens({ ...userDto });
+    
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return { ...tokens, user: userDto };

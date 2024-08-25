@@ -7,7 +7,15 @@ export interface IAuthResponse {
 export interface IUser {
     email: string;
     isActivated: boolean;
-    id: string;
+    id: number | string;
+}
+
+export interface IUserFromDb {
+    id:number;
+    email:string;
+    password:string;
+    isactivated:boolean;
+    activationlink:string;
 }
 
 export interface IDBResponse<T> {
@@ -17,10 +25,10 @@ export interface IDBResponse<T> {
 }
 
 export interface ISQLResponse<T> {
-  command: string;
-  fields:Array<Record<string,number|string>>;
-  rowAsArray: boolean;
-  rowCount: number;
-  rows: Array<T>;
-  viaNeonFetch: boolean;
+    command: string;
+    fields:Array<Record<string,number|string>>;
+    rowAsArray: boolean;
+    rowCount: number;
+    rows: Array<T>;
+    viaNeonFetch: boolean;
 }

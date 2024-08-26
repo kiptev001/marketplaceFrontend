@@ -1,4 +1,5 @@
-import TokenModel from '../../src/models/tokenModel';
+// import TokenModel from '../../src/models/tokenModel';
+import TokenModel from '@/app/src/models/supabase/tokenModel';
 import * as jose from 'jose';
 
 class TokenService {
@@ -20,25 +21,30 @@ class TokenService {
   }
 
   async saveToken(userId:number, refreshToken:string) {
-    const tokenData = await TokenModel.findOneByUserId(userId);
-    if (tokenData.refreshToken) {
-      const { refreshToken: newToken } = await TokenModel.saveToken(userId, refreshToken);
+    const responseWithExistingToken = await TokenModel.findOneByUserId(userId);
+    const refreshTokenFromDb = responseWithExistingToken.data?.[0];
+
+    if (refreshTokenFromDb) {
+      const responseWithNewToken = await TokenModel.saveToken(userId, refreshToken);
+      const newToken = responseWithNewToken.data?.[0].refreshtoken;
       return newToken;
     }
-    const token = await TokenModel.create( userId, refreshToken );
-    return token;
+
+    const responseWithNewToken = await TokenModel.create( userId, refreshToken );
+    const newToken = responseWithNewToken.data?.[0].refreshtoken;
+    return newToken;
   }
 
   async removeToken(refreshToken:string) {
-    const tokenData = await TokenModel.deleteOne(refreshToken);
-    return tokenData;
+    await TokenModel.deleteOne(refreshToken);
   }
 
   async findToken(refreshToken:string) {
-    const tokenData = await TokenModel.findOne(refreshToken);
-    return tokenData;
+    const responseWithToken = await TokenModel.findOne(refreshToken);
+    const refreshTokenFromDb = responseWithToken.data?.[0];
+    if(refreshTokenFromDb)return refreshTokenFromDb;
+    return null;
   }
-
 
   async validateAccessToken(accessToken:string) {
     try {

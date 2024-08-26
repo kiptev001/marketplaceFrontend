@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import UserModel from '../../../src/models/userModel';
+// Vercel PG DB
+// import UserModel from '../../../src/models/userModel';
+// Supabase PG DB
+import UserModel from '@/app/src/models/supabase/userModel';
 import { ApiError } from '../../../src/services/apiError';
 
 interface DatabaseError extends Error {
@@ -16,8 +19,8 @@ export async function GET(req: NextRequest, { params }: { params: { link: string
 
     const response = await UserModel.activate(activationLink);
 
-    if(response.status !== 200){
-      throw ApiError.BadRequest('Incorrect activation link');
+    if(response.status !== 204){
+      return NextResponse.json({ error: 'Incorrect activation link' },{ status: 400 });
     }
 
     return NextResponse.redirect(process.env.CLIENT_URL || '/');

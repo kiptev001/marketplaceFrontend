@@ -1,7 +1,7 @@
 import { supabase } from './database';
 
 class TokenModel {
-  async findOneByUserId(userId:string){
+  async findOneByUserId(userId:number | string){
     const response = await supabase
       .from('tokens')
       .select()
@@ -10,7 +10,7 @@ class TokenModel {
     return response;
   }
 
-  async create(userId:string, refreshToken:string){
+  async create(userId:number | string, refreshToken:string){
     const response = await supabase
       .from('tokens')
       .insert({ userid: userId, refreshtoken: refreshToken })
@@ -28,7 +28,7 @@ class TokenModel {
     return response;
   }
 
-  async saveToken(userId:string, refreshToken:string) {
+  async saveToken(userId:number | string, refreshToken:string) {
     const response = await supabase
       .from('tokens')
       .update({ refreshtoken: refreshToken })
@@ -42,10 +42,6 @@ class TokenModel {
       .from('tokens')
       .delete()
       .eq('refreshtoken', refreshToken);
-
-    if (response?.error) {
-      throw response?.error;
-    }
 
     return response;
   }

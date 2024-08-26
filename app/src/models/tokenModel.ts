@@ -2,7 +2,7 @@ import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 
 class TokenModel {
-  async findOneByUserId(userId:number){
+  async findOneByUserId(userId:string | number){
     const result = await sql`
       SELECT * FROM tokens WHERE userId = ${userId};
     `;
@@ -26,7 +26,7 @@ class TokenModel {
     return { refreshToken: result.rows[0] ,status: 200 };
   }
 
-  async create(userId:number, refreshToken:string){
+  async create(userId: string | number, refreshToken: string){
     const result = await sql`
       INSERT INTO tokens (userId, refreshToken)
       VALUES (${userId}, ${refreshToken})
@@ -36,7 +36,7 @@ class TokenModel {
     return { refreshToken: result.rows[0] ,status: 200 };
   }
 
-  async saveToken(userId:number, refreshToken:string){
+  async saveToken(userId:string | number, refreshToken:string){
     const result = await sql`UPDATE tokens SET refreshtoken = ${refreshToken} WHERE userId = ${userId} RETURNING *;`;
 
     return { refreshToken: result.rows[0], status: 200 };

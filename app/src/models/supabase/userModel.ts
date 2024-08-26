@@ -1,11 +1,10 @@
 import { supabase } from './database';
 import { PostgrestResponse } from '@supabase/supabase-js';
-import { IUser } from '../../types';
-import Error from 'next/error';
 import { ApiError } from '../../services/apiError';
+import { IUserFromDb } from '../../types';
 
 class UserModel {
-  async findOne(email: string):Promise<PostgrestResponse<IUser>> {
+  async findOne(email: string):Promise<PostgrestResponse<IUserFromDb>> {
     const response = await supabase
       .from('users')
       .select('*')
@@ -14,7 +13,7 @@ class UserModel {
     return response;
   }
 
-  async findById(id: string):Promise<PostgrestResponse<IUser>> {
+  async findById(id: string):Promise<PostgrestResponse<IUserFromDb>> {
     const response = await supabase
       .from('users')
       .select('*')
@@ -23,7 +22,7 @@ class UserModel {
     return response;
   }
 
-  async create(email: string, password: string, activationlink: string):Promise<PostgrestResponse<IUser>> {
+  async create(email: string, password: string, activationlink: string):Promise<PostgrestResponse<IUserFromDb>> {
     const response = await supabase
       .from('users')
       .insert({ email, password, activationlink })
@@ -55,7 +54,7 @@ class UserModel {
     return { status: 204 };
   }
 
-  async findAll():Promise<PostgrestResponse<IUser>> {
+  async findAll():Promise<PostgrestResponse<IUserFromDb>> {
     const response = await supabase
       .from('users')
       .select('*');

@@ -15,11 +15,11 @@ export async function POST(request:NextRequest ) {
       return NextResponse.json({ error: 'No refresh token' }, { status: 500 });
     }
 
-    const token = await UserService.logout(cookie?.value);
+    await UserService.logout(cookie?.value);
 
     cookies().delete('refreshToken');
 
-    return NextResponse.json(token);
+    return NextResponse.json(null,{ status: 200 });
 
   } catch (error) {
     const dbError = error as DatabaseError;

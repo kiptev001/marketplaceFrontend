@@ -12,7 +12,6 @@ export async function GET(request:NextRequest ) {
     const cookie = cookies().get('refreshToken');
     if(!cookie)return NextResponse.redirect(process.env.CLIENT_URL || '/');
     const userData = await UserService.refresh(cookie?.value);
-    //@ts-ignore
     cookies().set('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
 
     return NextResponse.json(userData,{ status: 200 });

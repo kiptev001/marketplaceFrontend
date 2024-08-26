@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from '@/app/src/http';
 import styles from './styles.module.scss';
-import { Ad } from '@/app/ui/entities/Ad/types';
+import { Ad, Contact, ContactTypes } from '@/app/ui/entities/Ad/types';
 import Image from 'next/image';
 import cn from 'clsx';
 import formatDate from '@/app/src/helpers/formatDate';
@@ -13,7 +13,9 @@ export default function AdPage({ params }: { params: { id: string } }){
 
   const getAd = useCallback( async ()=>{
     const response = await api.get('/ads/getOne',{ params: { id: params.id } });
-    setAd(response.data);
+    setAd(()=>{
+      return { ...response.data, contacts: JSON.parse(response.data.contacts) };
+    });
     setSelectedPhoto(response.data.images[0]);
   },[params.id]);
 
@@ -42,22 +44,22 @@ export default function AdPage({ params }: { params: { id: string } }){
       <div className={styles.location}>{ad?.location}</div>
       <h2 className={styles.heading}>Дата размещения объявления</h2>
       <div className={styles.createdat}>{formatDate(ad?.createdat as string)}</div>
-      {ad?.contacts && ad?.contacts?.map((contact)=>{
-        if(contact.type === 'Telegram'){
-          if(contact.value[0]==='@'){
-            contact.value = contact.value.slice(1);
-          }
+      {ad?.contacts && ad?.contacts?.map((contact:Contact)=>{
+        if(contact.type === 'Telegram' && contact.value[0]==='@'){
+          contact.value = contact.value.slice(1);
         }
-        return (
-          <div key={contact.value}>
-            <div>{contact.type}</div>
-            <div>{contact.value}</div>
-            {contact.type === 'Telegram' ?
-              <a href={`https://t.me/${contact.value}`} target="_blank">Chat on Telegram</a>:
-              <a href={`https://wa.me/${contact.value}`} target="_blank">Chat on WhatsApp</a>
-            }
-          </div>
-        );
+
+        if(contact.type === 'Phone' && contact.value?.[0]==='+'){
+          contact.value = contact.value.slice(1);
+        }
+
+        if(contact.type === 'Telegram'){
+          return (<a key={contact.type} href={`https://t.me/${contact.value}`} target="_blank">Chat on Telegram</a>);
+        } else if (contact.type === 'WhatsApp'){
+          return (<a key={contact.type} href={`https://wa.me/${contact.value}`} target="_blank">Chat on WhatsApp</a>);
+        } else {
+          return (<a key={contact.type} href={'tel:+{contact.value}'}>Call {contact.value}</a>);
+        }
       })}
     </section>
   );

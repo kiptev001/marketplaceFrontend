@@ -36,14 +36,7 @@ class TokenService {
   }
 
   async removeToken(refreshToken:string) {
-    const response = await TokenModel.deleteOne(refreshToken);
-
-    if(!response.error){
-      return response.data?.[0];
-    } 
-    else {
-      return response.error;
-    };
+    await TokenModel.deleteOne(refreshToken);
   }
 
   async findToken(refreshToken:string) {

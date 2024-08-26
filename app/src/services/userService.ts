@@ -72,7 +72,6 @@ class UserService {
 
   async logout(refreshToken:string) {
     const token = await tokenService.removeToken(refreshToken);
-    return token;
   }
 
   async refresh(refreshToken:string) {
@@ -82,8 +81,9 @@ class UserService {
 
     const userData = await tokenService.validateRefreshToken(refreshToken);
 
-    const { refreshToken: tokenFromDb } = await tokenService.findToken(refreshToken);
+    const responseWithTokenFromDb = await tokenService.findToken(refreshToken);
 
+    const tokenFromDb = responseWithTokenFromDb?.refreshtoken;
     if (!userData || !tokenFromDb) {
       throw ApiError.UnauthorizedError();
     }

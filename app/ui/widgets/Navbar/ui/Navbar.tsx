@@ -7,6 +7,8 @@ import { AppLink, ThemeAppLink } from '@/app/ui/shared/AppLink';
 import { toast } from 'react-toastify';
 import api from '@/app/src/http';
 import { useAuth } from '@/app/ui/providers/AuthProvider';
+import { SandwichMenu } from '@/app/ui/shared/SandwichMenu/index';
+import { SandwichMenuItem } from '@/app/ui/shared/SandwichMenu/ui/SandwichMenu';
 
 export interface NavbarProps {
   readonly className?: string;
@@ -26,6 +28,32 @@ function Navbar({ className }: NavbarProps) {
     }
   };
 
+  const authItems:Array<SandwichMenuItem> = [
+    { 
+      href: '/',
+      text: 'На главную'
+    },
+    {
+      text: 'Выйти',
+      onClick: handleLogout,
+    },
+    {
+      text: 'Личный кабинет',
+      href: '/profile'
+    }
+  ];
+
+  const unAuthItems:Array<SandwichMenuItem> = [
+    { 
+      href: '/',
+      text: 'На главную'
+    },
+    {
+      text: 'Войти',
+      href: '/login'
+    }
+  ];
+
   return (
     <div className={classNames(cls.navbar, {}, [className])}>
       <AppLink href="/">
@@ -33,14 +61,7 @@ function Navbar({ className }: NavbarProps) {
       </AppLink>
       {!auth.user && <AppLink theme={ThemeAppLink.SECONDARY} href="/registration">Вход и регистрация</AppLink>}
       <AppLink theme={ThemeAppLink.SECONDARY} href="/createAd">Разместить объявление</AppLink>
-      <div>{auth.user?.email}</div>
-      {auth.user && <Button
-        className={cls.links}
-        theme={ThemeButton.CLEAR}
-        onClick={handleLogout}
-      >
-        Выйти
-      </Button>}
+      <SandwichMenu title={auth.user?.email} items={auth.user?authItems:unAuthItems}/>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export async function POST(request:NextRequest ) {
     if(!authorizationHeader)return NextResponse.json(null);
     const accessToken = authorizationHeader.split(' ')[1];
     if (!accessToken) {
-      return NextResponse.json(null);
+      return NextResponse.json(null,{ status: 401 });
     }
     const userData = await TokenService.validateAccessToken(accessToken);
     if (!userData) {

@@ -10,6 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: { link: string
   try {
     const activationLink = params.link;
     const newYork = 1;
+    const newYork2 = 2;
     if (!activationLink) {
       return NextResponse.json({ error: 'Activation link is missing' }, { status: 400 });
     }

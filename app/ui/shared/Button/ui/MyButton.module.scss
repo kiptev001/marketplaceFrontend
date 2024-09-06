@@ -16,6 +16,18 @@
   }
 }
 
+.selected {
+  margin: 0;
+  border: none;
+  background-color: var(--selected-color);
+  color: var(--inverted-primary-color);
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--tinted-selected-color);
+  }
+}
+
 .outline {
   margin: 0;
   border: solid 2px var(--inverted-primary-color);

@@ -5,6 +5,8 @@ import api from '@/app/src/http';
 interface User {
   email: string;
   activationLink: string;
+  firstName?:string;
+  secondName?:string;
 }
 
 interface AuthContextType {

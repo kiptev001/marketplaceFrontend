@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import styles from './Input.module.scss';
 import classNames from 'clsx';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type HTMLInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,6 +22,7 @@ interface IInputProps extends HTMLInputProps {
   readonly onChange?: (value: string) => void;
   readonly theme?: ThemeInput;
   readonly size?: SizeInput;
+  readonly register?:UseFormRegisterReturn
 }
 
 export enum ThemeInput {
@@ -44,6 +46,7 @@ const Input = (props: IInputProps) => {
     autoFocus,
     theme = 'outlined',
     size = 'medium',
+    register = {},
     ...rest
   } = props;
 
@@ -68,6 +71,7 @@ const Input = (props: IInputProps) => {
       type={type}
       value={value}
       placeholder={placeholder}
+      {...register}
     />
   );
 };

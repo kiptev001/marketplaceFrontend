@@ -11,6 +11,14 @@ class AdModel {
     return response;
   }
 
+  async findByUserId(userId:string){
+    const response = await supabase
+      .from('ads')
+      .select().eq('userid', userId);
+
+    return response;
+  }
+
   async findMany({ page, pageSize }: { page?: number; pageSize?: number } = { page: 1, pageSize: 10 }): Promise<PostgrestResponse<Ad>> {
     let response;
 

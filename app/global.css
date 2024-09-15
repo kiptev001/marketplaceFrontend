@@ -47,6 +47,8 @@
   --overlay-color: rgba(24, 24, 25, 0.394);
   --light-red: #f71b47;
   --dark-red: rgb(161 9 9);
+  --delete-red-color:rgba(255, 21, 21, 0.884);
+  --tinted-delete-red-color:rgba(239, 19, 19, 0.968);
 
   --bg-color: #ffffff;
   --inverted-bg-color: #000000;
@@ -58,7 +60,7 @@
   --secondary-color: #292930;
   --inverted-secondary-color: #dee0e4;
 
-  --light-grey-color: #757575;
+  --light-grey-color: #b6b6b6;
   --super-light-grey-color: #e9e9e9;
 
   --selected-color: #49bd5c;

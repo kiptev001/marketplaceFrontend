@@ -38,8 +38,8 @@ function Navbar({ className }: NavbarProps) {
       onClick: handleLogout,
     },
     {
-      text: 'Личный кабинет',
-      href: '/profile'
+      text: 'Мои объявления',
+      href: '/myAds'
     }
   ];
 

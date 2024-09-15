@@ -16,6 +16,18 @@
   }
 }
 
+.red {
+  margin: 0;
+  border: none;
+  background-color: var(--delete-red-color);
+  color: var(--inverted-primary-color);
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--tinted-delete-red-color);
+  }
+}
+
 .selected {
   margin: 0;
   border: none;
@@ -30,9 +42,14 @@
 
 .outline {
   margin: 0;
-  border: solid 2px var(--inverted-primary-color);
+  color: var(--secondary-color);
+  border: solid 1px var(--light-grey-color);
   border-radius: 6px;
   background: none;
+
+  &:hover {
+    background-color: var(--light-grey-color);
+  }
 }
 
 .background {

@@ -38,7 +38,7 @@ const MyAdsPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h5 className={styles.title}>Мои объявления</h5>
+      <h5 className={styles.title}>Мои объявления!!!</h5>
       <div>{response?.status}</div>
       <div>{response?.data.length}</div>
       <div className={styles.list}>

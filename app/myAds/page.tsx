@@ -1,51 +1,44 @@
-'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import styles from './ProfilePage.module.scss';
-import api from '../src/http';
 import MyAdsAdCard from '../ui/entities/Ad/ui/MyAdsAdCard';
 import { Ad } from '../ui/entities/Ad/types';
-import { Loader } from '../ui/shared/Loader';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-const MyAdsPage = () => {
-  const [myAds, setMyAds] = useState<Ad[]>([]);
-  const [response,setResponse]= useState<AxiosResponse>();
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const fetchMyAds =useCallback( async ()=>{
-    try {
-      setIsLoading(true);
-      const response = await api.get('/ads/myAds');
-      setResponse(response);
-      setMyAds( response?.data );
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === 401) {
-        toast.error('Сначала нужно авторизоваться', { position: 'bottom-left' });
-        router.push('/login');
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  },[router]);
+const MyAdsPage = async () => {
+  const cookiesStore = cookies();
+  const cookieString = cookiesStore
+    .getAll()
+    .map(cookie => `${cookie.name}=${cookie.value}`)
+    .join('; ');
 
-  useEffect(() => {
-    fetchMyAds();
-  }, [fetchMyAds]);
+  const apiUrl = process.env.API_URL || 'http://thaisell.net/api';
 
-  if(isLoading) return <Loader />;
+  const response = await fetch(`${apiUrl}/ads/myAds`,{ method: 'GET',  headers: {
+    'Content-Type': 'application/json',
+    'Cookie': cookieString,
+  }, });
 
-  return (
-    <div className={styles.wrapper}>
-      <h5 className={styles.title}>Мои объявления!!!</h5>
-      <div>{response?.status}</div>
-      <div>{response?.data.length}</div>
-      <div className={styles.list}>
-        {myAds.map(ad=><MyAdsAdCard className={styles.item} key={ad.id} ad={ad}/>)}
+  if(response.status === 401){
+    redirect('/login');
+  }
+
+  const ads:Ad[] = await response.json();
+
+  if(ads.length>0){
+    return (
+      <div className={styles.wrapper}>
+        <h5 className={styles.title}>Мои объявления</h5>
+        <div className={styles.list}>
+          {ads.map(ad=><MyAdsAdCard className={styles.item} key={ad.id} ad={ad}/>)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return(<div className={styles.wrapper}>
+    <h5 className={styles.title}>Объявления не найдены</h5>
+  </div>);
 };
 
 export default MyAdsPage;

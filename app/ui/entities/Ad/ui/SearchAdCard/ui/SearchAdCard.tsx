@@ -9,6 +9,7 @@ interface SearchAdCardProps {
 }
 
 export const SearchAdCard = ({ ad }:SearchAdCardProps) => {
+  const description = ad.description.length > 65 ? `${ad.description.slice(0,60)}...` : ad.description;
 
   return (
     <div className={styles.Card}>
@@ -21,7 +22,7 @@ export const SearchAdCard = ({ ad }:SearchAdCardProps) => {
           <h4>{ad.price}</h4>
           <h4>{ad.currency}</h4>
         </div>
-        <div className={styles.Description}>{ad.description}</div>
+        <div className={styles.Description}>{description}</div>
         <div className={styles.Location}>{ad.location}</div>
       </div>
     </div>

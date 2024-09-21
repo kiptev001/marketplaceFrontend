@@ -28,8 +28,11 @@ const MyAdsPage = () => {
   if(isLoading) return <Loader />;
 
   return (
-    <div className={styles.page}>
-      {myAds.map(ad=><MyAdsAdCard key={ad.id} ad={ad}/>)}
+    <div className={styles.wrapper}>
+      <h5 className={styles.title}>Мои объявления</h5>
+      <div className={styles.list}>
+        {myAds.map(ad=><MyAdsAdCard className={styles.item} key={ad.id} ad={ad}/>)}
+      </div>
     </div>
   );
 };

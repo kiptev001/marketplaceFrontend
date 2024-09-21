@@ -7,11 +7,12 @@ import { Button, SizeButton, ThemeButton } from '@/app/ui/shared/Button';
 
 interface MyAdsAdCardProps {
     ad: Ad
+    className?: string
 }
 
-const MyAdsAdCard = ({ ad }:MyAdsAdCardProps) => {
+const MyAdsAdCard = ({ ad,className }:MyAdsAdCardProps) => {
   return (
-    <div className={cn(styles.card)}>
+    <div className={cn(styles.card, className)}>
       <SearchAdCard ad={ad}/>
       <div className={cn(styles.buttons)}>
         <Button size={SizeButton.MEDIUM} theme={ThemeButton.OUTLINE}>Редактировать</Button>

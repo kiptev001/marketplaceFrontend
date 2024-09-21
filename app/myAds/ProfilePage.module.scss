@@ -10,11 +10,15 @@
     }
 
     .list {
-        width: 100%;
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;
         margin-top: 15px;
         padding-bottom: 50px;
+
+        .item {
+            flex: 0 1 208px;
+            margin: 10px;
+        }
     }
 }

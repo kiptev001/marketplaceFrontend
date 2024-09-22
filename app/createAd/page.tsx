@@ -87,8 +87,13 @@ function CreateAdPage() {
   const createAd = async (data: Ad) => {
     try {
       const response = await api.post('/ads/create', data);
+      if(response.status === 200){
+        toast.success('Объявление успешно создано',{ position: 'top-left' });
+        router.push('/myAds');
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        toast.error('Произошла ошибка, попробуйте ещё раз',{ position: 'top-left' });
         console.error('Error creating ad:', error.response?.data || error.message);
       } else {
         console.error('Unexpected error:', error);

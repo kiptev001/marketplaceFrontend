@@ -1,5 +1,6 @@
 .registrationForm {
-    width: 470px;
+    width: 100%;
+    max-width: 450px;
     padding: 35px;
     border: solid 3px var(--primary-color);
     border-radius: 16px;
@@ -13,8 +14,9 @@
     }
 
     .submitButton {
-        width: 130px;
-        align-self: flex-start;
+        align-self: center;
+        width: 100%;
+        height: 2.5rem;
     }
 }
 

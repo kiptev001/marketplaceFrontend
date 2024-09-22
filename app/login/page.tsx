@@ -48,7 +48,7 @@ function LoginPage  () {
 
   return (
     <div className={styles.registrationForm}>
-      Вход
+      <h2>Вход</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="email"
@@ -90,7 +90,7 @@ function LoginPage  () {
           {errors.password?<span>{errors.password.message}</span>: null}
         </div>
 
-        <Button className={styles.submitButton} size={SizeButton.LARGE} type='submit'>Войти</Button>
+        <Button className={styles.submitButton} size={SizeButton.MEDIUM} type='submit'>Войти</Button>
       </form>
     </div>
   );

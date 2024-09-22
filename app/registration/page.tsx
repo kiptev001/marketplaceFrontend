@@ -45,7 +45,7 @@ function RegistrationPage  () {
 
   return (
     <div className={styles.registrationForm}>
-      Регистрация
+      <h2>Регистрация</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="email"

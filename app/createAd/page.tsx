@@ -1,17 +1,17 @@
 'use client';
 import React, { useState } from 'react';
-import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
-import { Button, SizeButton } from '../ui/shared/Button';
+import { Input, SizeInput, ThemeInput } from '@/src/ui/shared/Input';
+import { Button, SizeButton } from '@/src/ui/shared/Button';
 import axios from 'axios';
 import api from '../../src/http/index';
-import { Ad, Contact, Currencies } from '../ui/entities/Ad/types';
+import { Ad, Contact, Currencies } from '@/src/ui/entities/Ad/types';
 import { Controller, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import styles from './createAd.module.scss';
-import { Dropdown } from '../ui/shared/Dropdown';
-import { FileInput } from '../ui/widgets/FileInput';
-import { ContactTypes } from '../ui/entities/Ad/types';
+import { Dropdown } from '@/src/ui/shared/Dropdown';
+import { FileInput } from '@/src/ui/widgets/FileInput/index';
+import { ContactTypes } from '@/src/ui/entities/Ad/types';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useAuth } from '../ui/providers/AuthProvider';
+import { useAuth } from '@/src/ui/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 

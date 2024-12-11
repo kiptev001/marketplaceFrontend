@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfilePage.module.scss';
-import MyAdsAdCard from '../ui/entities/Ad/ui/MyAdsAdCard';
-import { Ad } from '../ui/entities/Ad/types';
+import MyAdsAdCard from '@/src/ui/entities/Ad/ui/MyAdsAdCard';
+import { Ad } from '@/src/ui/entities/Ad/types';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

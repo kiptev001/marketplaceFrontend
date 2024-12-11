@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
-import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
-import { Button, SizeButton } from '../ui/shared/Button';
+import { Input, SizeInput, ThemeInput } from '@/src/ui/shared/Input';
+import { Button, SizeButton } from '@/src/ui/shared/Button';
 import axios from 'axios';
 import api from '../../src/http/index';
 import { Controller, SubmitHandler,useForm } from 'react-hook-form';
 import styles from '../registration/registration.module.scss';
 import { toast } from 'react-toastify';
-import { useAuth } from '../ui/providers/AuthProvider';
+import { useAuth } from '@/src/ui/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 
 type Inputs = {

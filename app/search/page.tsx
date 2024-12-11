@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchAdCard } from '../ui/entities/Ad/ui/SearchAdCard/index';
+import { SearchAdCard } from '@/src/ui/entities/Ad/ui/SearchAdCard/index';
 
 interface SearchPageProps {
   searchParams: Record<string,string>

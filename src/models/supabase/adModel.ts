@@ -1,4 +1,4 @@
-import { Ad } from '@/app/ui/entities/Ad/types/index';
+import { Ad } from '@/src/ui/entities/Ad/types/index';
 import { PostgrestResponse } from '@supabase/supabase-js';
 import { supabase } from './database';
 

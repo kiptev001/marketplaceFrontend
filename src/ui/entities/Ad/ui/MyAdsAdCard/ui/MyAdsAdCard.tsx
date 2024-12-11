@@ -3,7 +3,7 @@ import styles from './MyAdsAdCard.module.scss';
 import { Ad } from '../../../types';
 import { SearchAdCard } from '../../SearchAdCard';
 import cn from 'clsx';
-import { Button, SizeButton, ThemeButton } from '@/app/ui/shared/Button';
+import { Button, SizeButton, ThemeButton } from '@/src/ui/shared/Button';
 
 interface MyAdsAdCardProps {
     ad: Ad

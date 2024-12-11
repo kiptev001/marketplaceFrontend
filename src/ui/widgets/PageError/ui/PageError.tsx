@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from './PageError.module.scss';
 import classNames from 'clsx';
-import { Button } from '@/app/ui/shared/Button/index';
+import { Button } from '@/src/ui/shared/Button/index';
 
 export interface PageErrorProps {
   readonly className?: string;

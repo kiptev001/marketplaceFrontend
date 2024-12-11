@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { IDBResponse } from '../types';
-import { Ad } from '@/app/ui/entities/Ad/types/index';
+import { Ad } from '@/src/ui/entities/Ad/types/index';
 
 class AdModel {
   async findOneById(id:number):Promise<IDBResponse<Ad>>{

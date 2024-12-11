@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './SearchAdCArd.module.scss';
 import { Ad } from '../../../types';
 import Image from 'next/image';
-import { AppLink } from '@/app/ui/shared/AppLink';
+import { AppLink } from '@/src/ui/shared/AppLink';
 
 interface SearchAdCardProps {
     ad:Ad

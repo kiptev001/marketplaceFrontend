@@ -4,7 +4,7 @@ import styles from './FileInput.module.scss';
 import cn from 'clsx';
 import Image from 'next/image';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Button, SizeButton, ThemeButton } from '@/app/ui/shared/Button';
+import { Button, SizeButton, ThemeButton } from '@/src/ui/shared/Button';
 
 interface IFileInputProps {
   className?: string;

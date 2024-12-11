@@ -1,6 +1,6 @@
 import styles from './AdsList.module.scss';
-import { AdCard } from '@/app/ui/entities/Ad/ui/AdCard/index';
-import { Ad } from '@/app/ui/entities/Ad/types';
+import { AdCard } from '@/src/ui/entities/Ad/ui/AdCard/index';
+import { Ad } from '@/src/ui/entities/Ad/types';
 
 export default async function AdsList() {
   const response = await fetch(`${process.env.API_URL}/ads/getMany`, { cache: 'no-store' });

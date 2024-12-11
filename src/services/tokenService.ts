@@ -1,5 +1,5 @@
 // import TokenModel from '../../src/models/tokenModel';
-import TokenModel from '@/app/src/models/supabase/tokenModel';
+import TokenModel from '@/src/models/supabase/tokenModel';
 import * as jose from 'jose';
 import { IUser } from '../types';
 

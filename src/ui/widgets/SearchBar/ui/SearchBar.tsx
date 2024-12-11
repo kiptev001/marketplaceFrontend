@@ -1,8 +1,8 @@
 'use client';
 import React, { useCallback, useState } from 'react';
 import styles from './SearchBar.module.scss';
-import { Button } from '@/app/ui/shared/Button';
-import { Input } from '@/app/ui/shared/Input';
+import { Button } from '@/src/ui/shared/Button';
+import { Input } from '@/src/ui/shared/Input';
 import { usePathname, useRouter } from 'next/navigation';
 
 

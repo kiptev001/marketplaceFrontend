@@ -1,9 +1,9 @@
 import 'react-toastify/dist/ReactToastify.min.css';
 import './global.css';
-import { Navbar } from '@/app/ui/widgets/Navbar';
-import { SearchBar } from '@/app//ui/widgets/SearchBar';
+import { Navbar } from '@/src/ui/widgets/Navbar/index';
+import { SearchBar } from '@/src/ui/widgets/SearchBar';
 import { ToastContainer } from 'react-toastify';
-import { AuthProvider } from './ui/providers/AuthProvider';
+import { AuthProvider } from '@/src/ui/providers/AuthProvider';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({

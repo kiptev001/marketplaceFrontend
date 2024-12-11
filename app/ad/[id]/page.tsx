@@ -1,11 +1,11 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import api from '@/app/src/http';
+import api from '@/src/http';
 import styles from './styles.module.scss';
-import { Ad, Contact, ContactTypes } from '@/app/ui/entities/Ad/types';
+import { Ad, Contact, ContactTypes } from '@/src/ui/entities/Ad/types';
 import Image from 'next/image';
 import cn from 'clsx';
-import formatDate from '@/app/src/helpers/formatDate';
+import formatDate from '@/src/helpers/formatDate';
 
 export default function AdPage({ params }: { params: { id: string } }){
   const [ad,setAd]=useState<Ad | null>(null);

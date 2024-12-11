@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { ApiError } from './app/src/services/apiError';
-import TokenService from './app/src/services/tokenService';
+import { ApiError } from './src/services/apiError';
+import TokenService from './src/services/tokenService';
 
 export function middleware(request: NextRequest) {
   const authorizationHeader = request.headers.get('authorization');

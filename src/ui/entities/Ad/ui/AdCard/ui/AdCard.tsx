@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import styles from './AdCard.module.scss';
-import { Button } from '@/app/ui/shared/Button/index';
+import { Button } from '@/src/ui/shared/Button/index';
 import { Ad } from '../../../types';
-import { AppLink } from '@/app/ui/shared/AppLink';
-import formatDate from '@/app/src/helpers/formatDate';
+import { AppLink } from '@/src/ui/shared/AppLink';
+import formatDate from '@/src/helpers/formatDate';
 import cn from 'clsx';
 
 export interface AdCardProps {

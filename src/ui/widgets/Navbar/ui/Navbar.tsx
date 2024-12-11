@@ -1,14 +1,14 @@
 'use client';
 import classNames from 'clsx';
 import cls from './Navbar.module.scss';
-import { Button, ThemeButton } from '@/app/ui/shared/Button';
+import { Button, ThemeButton } from '@/src/ui/shared/Button';
 import { Favorite, ShoppingCart } from '@mui/icons-material';
-import { AppLink, ThemeAppLink } from '@/app/ui/shared/AppLink';
+import { AppLink, ThemeAppLink } from '@/src/ui/shared/AppLink';
 import { toast } from 'react-toastify';
-import api from '@/app/src/http';
-import { useAuth } from '@/app/ui/providers/AuthProvider';
-import { SandwichMenu } from '@/app/ui/shared/SandwichMenu/index';
-import { SandwichMenuItem } from '@/app/ui/shared/SandwichMenu/ui/SandwichMenu';
+import api from '@/src/http';
+import { useAuth } from '@/src/ui/providers/AuthProvider';
+import { SandwichMenu } from '@/src/ui/shared/SandwichMenu/index';
+import { SandwichMenuItem } from '@/src/ui/shared/SandwichMenu/ui/SandwichMenu';
 
 export interface NavbarProps {
   readonly className?: string;
@@ -40,6 +40,10 @@ function Navbar({ className }: NavbarProps) {
     {
       text: 'Мои объявления',
       href: '/myAds'
+    },
+    {
+      text: 'UI KIT',
+      href: '/uikit'
     }
   ];
 

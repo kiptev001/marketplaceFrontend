@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 // Vercel PG DB
 // import UserModel from '../../../src/models/userModel';
 // Supabase PG DB
-import UserModel from '@/app/src/models/supabase/userModel';
-import { ApiError } from '../../../src/services/apiError';
+import UserModel from '@/src/models/supabase/userModel';
+import { ApiError } from '../../../../src/services/apiError';
 
 interface DatabaseError extends Error {
   code?: string;

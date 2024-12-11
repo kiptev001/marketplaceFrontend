@@ -1,0 +1,89 @@
+.Page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 120px;
+}
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgb(244, 244, 244);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.Button {
+  width: fit-content;
+}
+
+.Loader {
+  color: red;
+}
+
+.Color {
+  width: 190px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.Primary {
+  background: var(--primary-color);
+}
+
+.PrimaryTinted {
+  background: var(--primary-color-tinted);
+}
+
+.InvertedPrimary {
+  background: var(--inverted-primary-color);
+}
+
+.Secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.InvertedSecondary {
+  background: var(--inverted-secondary-color);
+}
+
+.Selected {
+  background: var(--selected-color);
+}
+
+.SelectedTinted {
+  background: var(--tinted-selected-color);
+}
+
+.LightGrey {
+  background: var(--light-grey-color);
+}
+
+.SuperLightGrey {
+  background: var(--super-light-grey-color);
+}
+
+.Background {
+  background: var(--bg-color);
+}
+
+.InvertedBackground {
+  background: var(--inverted-bg-color);
+  color: white;
+}
+
+.LightRed {
+  background: var(--light-red);
+  color: white;
+}
+
+.DarkRed {
+  background: var(--dark-red);
+  color: white;
+}

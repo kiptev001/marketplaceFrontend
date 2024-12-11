@@ -45,8 +45,10 @@
   --sidebar-width-collapsed: 60px;
   --modal-z-index: 10;
   --overlay-color: rgba(24, 24, 25, 0.394);
+  
   --light-red: #f71b47;
   --dark-red: rgb(161 9 9);
+
   --delete-red-color:rgba(255, 21, 21, 0.884);
   --tinted-delete-red-color:rgba(239, 19, 19, 0.968);
 

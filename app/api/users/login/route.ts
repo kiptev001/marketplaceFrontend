@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import UserService from '../../../src/services/userService';
+import UserService from '../../../../src/services/userService';
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 

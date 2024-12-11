@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import AdModel from '@/app/src/models/supabase/adModel';
-import TokenService from '@/app/src/services/tokenService';
+import AdModel from '@/src/models/supabase/adModel';
+import TokenService from '@/src/services/tokenService';
 
 export async function GET(request:NextRequest, params: Record<string,string> ) {
   const refreshToken = request.cookies.get('refreshToken')?.value;

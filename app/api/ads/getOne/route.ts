@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 // import AdModel from '../../../src/models/adModel';
-import AdModel from '@/app/src/models/supabase/adModel';
+import AdModel from '@/src/models/supabase/adModel';
 
 interface DatabaseError extends Error {
   code?: string;

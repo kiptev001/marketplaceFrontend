@@ -1,6 +1,6 @@
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import TokenService from '@/app/src/services/tokenService';
+import TokenService from '@/src/services/tokenService';
 
 interface DatabaseError extends Error {
   code?: string;

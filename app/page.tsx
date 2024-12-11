@@ -1,4 +1,4 @@
-import { AdsList } from './ui/widgets/AdsList';
+import { AdsList } from '@/src/ui/widgets/AdsList/index';
 
 export default function Page() {
 

@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import MailService from './mailService';
 import tokenService from './tokenService';
 // import UserModel from '../../src/models/userModel';
-import UserModel from '@/app/src/models/supabase/userModel';
+import UserModel from '@/src/models/supabase/userModel';
 import { ApiError } from './apiError';
 import { IUserFromDb } from '../types';
 

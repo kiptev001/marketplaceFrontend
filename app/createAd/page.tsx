@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Input, SizeInput, ThemeInput } from '../ui/shared/Input';
 import { Button, SizeButton } from '../ui/shared/Button';
 import axios from 'axios';
-import api from '../src/http/index';
+import api from '../../src/http/index';
 import { Ad, Contact, Currencies } from '../ui/entities/Ad/types';
 import { Controller, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import styles from './createAd.module.scss';

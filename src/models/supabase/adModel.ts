@@ -51,6 +51,24 @@ class AdModel {
     return response;
   }
 
+  async edit(ad:Ad): Promise<PostgrestResponse<Ad>> {
+    const imagesArray = ad.images ? `{${ad?.images?.map(image => `"${image}"`).join(',')}}` : null;
+    const contactsJson = JSON.stringify(ad.contacts);
+    const response = await supabase
+      .from('ads')
+      .update({ 
+        title: ad.title, 
+        price: ad.price, 
+        location: ad.location, 
+        description: ad.description, 
+        images: imagesArray, 
+        currency: ad.currency, 
+        contacts: contactsJson })
+      .eq('id', ad.id).select(); 
+
+    return response;
+  }
+
   async search(keyword: string): Promise<PostgrestResponse<Ad>> {
     const query = `
         SELECT *

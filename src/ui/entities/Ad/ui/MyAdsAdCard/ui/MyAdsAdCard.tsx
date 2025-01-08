@@ -4,6 +4,7 @@ import { Ad } from '../../../types';
 import { SearchAdCard } from '../../SearchAdCard';
 import cn from 'clsx';
 import { Button, SizeButton, ThemeButton } from '@/src/ui/shared/Button';
+import Link from 'next/link';
 
 interface MyAdsAdCardProps {
     ad: Ad
@@ -11,11 +12,14 @@ interface MyAdsAdCardProps {
 }
 
 const MyAdsAdCard = ({ ad,className }:MyAdsAdCardProps) => {
+
   return (
     <div className={cn(styles.card, className)}>
       <SearchAdCard ad={ad}/>
       <div className={cn(styles.buttons)}>
-        <Button size={SizeButton.MEDIUM} theme={ThemeButton.OUTLINE}>Редактировать</Button>
+        <Link href={`/editAd/${ad.id}`}>
+          <Button size={SizeButton.MEDIUM} theme={ThemeButton.OUTLINE}>Редактировать</Button>
+        </Link>
         <Button size={SizeButton.MEDIUM} theme={ThemeButton.RED}>Удалить</Button>
       </div>
     </div>

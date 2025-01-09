@@ -1,6 +1,9 @@
 .btn {
   cursor: pointer;
   color: var(--inverted-primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .clear {

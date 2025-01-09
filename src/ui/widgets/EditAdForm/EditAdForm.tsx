@@ -5,10 +5,11 @@ import { Dropdown } from '../../shared/Dropdown';
 import { FileInput } from '../FileInput';
 import React, { useEffect, useState } from 'react';
 import { Ad, Contact, Currencies } from '@/src/ui/entities/Ad/types';
-import { Button, SizeButton } from '../../shared/Button';
+import { Button, SizeButton, ThemeButton } from '../../shared/Button';
 import { ContactTypes } from '@/src/ui/entities/Ad/types';
 import { Controller, useFieldArray } from 'react-hook-form';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import st from './EditAdForm.module.scss';
 
 const EditAdForm = ({ ad }:{ad:Ad}) => {
   const IMAGE_SERVER_URL='https://api.thaisell.net';
@@ -80,26 +81,30 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
   };
 
   return (
-    <form action={handleSubmit}>
-      <Input defaultValue={ad?.title} name='title'/>
-      <Input defaultValue={ad?.price} name='price'/>
-      <Dropdown optionsEnum={Currencies} name='currency'/>
-      <Input defaultValue={ad?.description} name='description'/>
-      <Input defaultValue={ad?.description} name='location'/>
+    <form className={st.Form} action={handleSubmit}>
+      <Input size={SizeInput.LARGE} defaultValue={ad?.title} name='title'/>
+      <div className={st.PriceRow}>
+        <Input className={st.PriceValueInput} size={SizeInput.LARGE} defaultValue={ad?.price} name='price'/>
+        <Dropdown optionsEnum={Currencies} name='currency'/>
+      </div>
+      <textarea className={st.Textarea} defaultValue={ad?.description} name='description'/>
+      <Input size={SizeInput.LARGE} defaultValue={ad?.location} name='location'/>
       {contacts && contacts.map((contact, index) => (
-        <div key={index}>
+        <div className={st.ContactRow} key={index}>
           <Dropdown
             optionsEnum={ContactTypes}
             defaultValue={contact?.type}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateContact(index, 'type', e?.target?.value)}
           />
           <Input
+            className={st.ContactValueInput}
+            size={SizeInput.LARGE}
             defaultValue={contact.value}
             onChange={(value) => updateContact(index, 'value', value)}
             placeholder="Введите контакт"
           />
           <Button type="button" onClick={() => removeContact(index)}>
-            Удалить
+            <DeleteForeverIcon />
           </Button>
         </div>
       ))}
@@ -107,7 +112,7 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
         Добавить контакт
       </Button>
       <FileInput setImages={setImages} images={images} accept="image/*" multiple />
-      <Button type='submit'>Submit</Button>
+      <Button className={st.SubmitButton} type='submit'>Готово</Button>
     </form>
   );
 };

@@ -1,15 +1,19 @@
 'use client';
-import { Input } from '../../shared/Input';
+
+import { Input, SizeInput } from '../../shared/Input';
 import { Dropdown } from '../../shared/Dropdown';
 import { FileInput } from '../FileInput';
 import React, { useEffect, useState } from 'react';
-import { Ad, Currencies } from '@/src/ui/entities/Ad/types';
-import { Button } from '../../shared/Button';
-import api from '@/src/http';
+import { Ad, Contact, Currencies } from '@/src/ui/entities/Ad/types';
+import { Button, SizeButton } from '../../shared/Button';
+import { ContactTypes } from '@/src/ui/entities/Ad/types';
+import { Controller, useFieldArray } from 'react-hook-form';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const EditAdForm = ({ ad }:{ad:Ad}) => {
   const IMAGE_SERVER_URL='https://api.thaisell.net';
   const [images, setImages]=useState<File[] | null>([]);
+  const [contacts, setContacts]=useState<Contact[]>([]);
 
   useEffect(() => {
     async function fetchImages() {
@@ -34,9 +38,16 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
     fetchImages();
   }, [ad?.images]);
 
+  useEffect(()=>{
+    //@ts-expect-error
+    const contactsArray = JSON.parse(ad?.contacts);
+    setContacts(contactsArray);
+  },[ad]);
+
   async function handleSubmit(data: FormData) {
     const formDataObject = Object.fromEntries(data.entries());
     console.log(formDataObject);
+    console.log(contacts);
 
     // const AdData = {
     //   id: ad?.id,
@@ -52,6 +63,22 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
     // const response = await api.post(`/ads/edit?id=${ad.id}`, AdData);
   }
 
+  const addContact = () => {
+    setContacts((prev) => [...prev, { type: ContactTypes.WhatsApp, value: '' }]);
+  };
+
+  const updateContact = (index: number, field: keyof Contact, value: string) => {
+    setContacts((prev) =>
+      prev.map((contact, i) =>
+        i === index ? { ...contact, [field]: value } : contact
+      )
+    );
+  };
+
+  const removeContact = (index: number) => {
+    setContacts((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <form action={handleSubmit}>
       <Input defaultValue={ad?.title} name='title'/>
@@ -59,40 +86,27 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
       <Dropdown optionsEnum={Currencies} name='currency'/>
       <Input defaultValue={ad?.description} name='description'/>
       <Input defaultValue={ad?.description} name='location'/>
-      <FileInput setImages={setImages} images={images} accept="image/*" multiple />
-      {/* {fields.map((item, index) => (
-        <div key={item.id} className={styles.contact}>
-          <p>Тип</p>
-          <Controller
-            name={`contacts.${index}.type`}
-            control={control}
-            defaultValue={item.type}
-            render={({ field }) => (
-              <Dropdown optionsEnum={ContactTypes} {...field} className={styles.select}/>
-            )}
+      {contacts && contacts.map((contact, index) => (
+        <div key={index}>
+          <Dropdown
+            optionsEnum={ContactTypes}
+            defaultValue={contact?.type}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateContact(index, 'type', e?.target?.value)}
           />
-          <p>Значение</p>
-          <Controller
-            name={`contacts.${index}.value`}
-            control={control}
-            defaultValue={item.value}
-            render={({ field }) => (
-              <Input
-                {...field}
-                theme={ThemeInput.OUTLINED}
-                size={SizeInput.LARGE}
-              />
-            )}
+          <Input
+            defaultValue={contact.value}
+            onChange={(value) => updateContact(index, 'value', value)}
+            placeholder="Введите контакт"
           />
-          <Button className={styles.removeContactButton} type="button" onClick={() => remove(index)} size={SizeButton.MEDIUM}>
-            <DeleteForeverIcon />
+          <Button type="button" onClick={() => removeContact(index)}>
+            Удалить
           </Button>
         </div>
       ))}
-      <Button className={styles.addContactButton} type="button" onClick={() => append({ type: ContactTypes.WhatsApp, value: '' })} size={SizeButton.MEDIUM}>
+      <Button type="button" onClick={addContact}>
         Добавить контакт
-      </Button> */}
-
+      </Button>
+      <FileInput setImages={setImages} images={images} accept="image/*" multiple />
       <Button type='submit'>Submit</Button>
     </form>
   );

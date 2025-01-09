@@ -8,14 +8,16 @@ interface IDropdownProps<T extends string> {
   optionsEnum: { [key: string]: T };
   register?: any;
   name?: string;
+  defaultValue?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Dropdown = <T extends string>({ name, className, optionsEnum, register, ...restProps }: IDropdownProps<T>) => {
+const Dropdown = <T extends string>({ name, className, optionsEnum, register, defaultValue, ...restProps }: IDropdownProps<T>) => {
   const options = Object.keys(optionsEnum) as T[];
 
   return (
     <div className={styles.dropdown}>
-      <select name={name} {...restProps} className={`${styles.select} ${className}`} {...register}>
+      <select defaultValue={defaultValue} name={name} {...restProps} className={`${styles.select} ${className}`} {...register}>
         {options.map(option => (
           <option key={option} value={optionsEnum[option]}>
             {optionsEnum[option]}

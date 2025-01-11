@@ -9,6 +9,7 @@ import { Button, SizeButton, ThemeButton } from '../../shared/Button';
 import { ContactTypes } from '@/src/ui/entities/Ad/types';
 import { Controller, useFieldArray } from 'react-hook-form';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Close } from '@mui/icons-material';
 import st from './EditAdForm.module.scss';
 
 const EditAdForm = ({ ad }:{ad:Ad}) => {
@@ -102,17 +103,18 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
             defaultValue={contact.value}
             onChange={(value) => updateContact(index, 'value', value)}
             placeholder="Введите контакт"
+            button={
+              <Button theme={ThemeButton.CLEAR} className={st.DeleteContactButton} type="button" onClick={() => removeContact(index)}>
+                <Close />
+              </Button>}
           />
-          <Button type="button" onClick={() => removeContact(index)}>
-            <DeleteForeverIcon />
-          </Button>
         </div>
       ))}
-      <Button type="button" onClick={addContact}>
+      <Button size={SizeButton.LARGE} type="button" onClick={addContact}>
         Добавить контакт
       </Button>
       <FileInput setImages={setImages} images={images} accept="image/*" multiple />
-      <Button className={st.SubmitButton} type='submit'>Готово</Button>
+      <Button size={SizeButton.LARGE} className={st.SubmitButton} type='submit'>Готово</Button>
     </form>
   );
 };

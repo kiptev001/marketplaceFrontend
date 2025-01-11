@@ -52,14 +52,14 @@ const FileInput: React.FC<IFileInputProps> = ({ className, multiple = false, acc
         {images && (
           Array.from(images).map((file, index) => (
             <div className={cn(styles.imagePreview,file.name===mainImage?styles.mainImage:null)} key={index} onClick={handleSetMainPicture(index)}>
-              <Button theme={ThemeButton.CLEAR} size={SizeButton.SMALL} className={styles.deleteImageButton} onClick={handleDeletePicture(index)}>
+              <Button theme={ThemeButton.CLEAR} className={styles.deleteImageButton} onClick={handleDeletePicture(index)}>
                 <ClearIcon/>
               </Button>
               <Image fill alt='Image' src={URL.createObjectURL(file)} className={styles.selectedFile} />
             </div>
           )))}
       </div>
-      <Button className={styles.inputButton} onClick={handleClick}>Добавить фотографию</Button>
+      <Button size={SizeButton.LARGE} className={styles.inputButton} onClick={handleClick}>Добавить фотографию</Button>
       <input
         name='images'
         type="file"

@@ -2,6 +2,7 @@
 import React, {
   type InputHTMLAttributes,
   type MutableRefObject,
+  ReactNode,
   memo,
   useEffect,
   useRef,
@@ -23,6 +24,7 @@ interface IInputProps extends HTMLInputProps {
   readonly theme?: ThemeInput;
   readonly size?: SizeInput;
   readonly register?:UseFormRegisterReturn
+  readonly button?: ReactNode
 }
 
 export enum ThemeInput {
@@ -47,6 +49,7 @@ const Input = (props: IInputProps) => {
     theme = 'outlined',
     size = 'medium',
     register = {},
+    button,
     ...rest
   } = props;
 
@@ -63,16 +66,19 @@ const Input = (props: IInputProps) => {
   };
 
   return (
-    <input
-      {...rest}
-      className={classNames(styles.input, { [styles[theme]]: true,[styles[size]]: true, }, [className, styles.theme])}
-      onChange={onChangeHandler}
-      ref={inputRef}
-      type={type}
-      value={value}
-      placeholder={placeholder}
-      {...register}
-    />
+    <div className={styles.InputWrapper}>
+      <input
+        {...rest}
+        className={classNames(styles.input, { [styles[theme]]: true,[styles[size]]: true, }, [className, styles.theme])}
+        onChange={onChangeHandler}
+        ref={inputRef}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        {...register}
+      />
+      {button && <div className={styles.ActionButton}>{button}</div>}
+    </div>
   );
 };
 

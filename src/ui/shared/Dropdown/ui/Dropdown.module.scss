@@ -19,6 +19,7 @@
   width: 120px;
   font-size: 16px;
   cursor: pointer;
+  height: var(--ui-height-l);
 
   &:focus {
     outline: solid 3px var(--primary-color);

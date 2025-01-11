@@ -1,5 +1,5 @@
 .Form {
-  width: 100%;
+  width: 350px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -21,15 +21,15 @@
   display: flex;
   width: 100%;
   gap: 7px;
-  flex: 1 1;
 
   .ContactValueInput {
-    width: 120px;
-    flex-grow: 1;
+    min-width: 130px;
   }
 
-  button {
-    height: var(--ui-height-l);
+  .DeleteContactButton {
+    height: var(--ui-height-s);
+    width: var(--ui-height-s);
+    color: red;
   }
 }
 

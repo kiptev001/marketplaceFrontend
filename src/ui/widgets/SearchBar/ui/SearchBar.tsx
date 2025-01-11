@@ -22,6 +22,7 @@ export default function SearchBar() {
   );
 
   const handleSearch = () =>{
+    if(!query)return;
     router.push(process.env.NEXT_PUBLIC_CLIENT_URL + '/search' + '?' + createQueryString('query', query));
   };
 

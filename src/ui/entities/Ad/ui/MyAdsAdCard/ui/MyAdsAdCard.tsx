@@ -17,8 +17,8 @@ const MyAdsAdCard = ({ ad,className }:MyAdsAdCardProps) => {
     <div className={cn(styles.card, className)}>
       <SearchAdCard ad={ad}/>
       <div className={cn(styles.buttons)}>
-        <Link href={`/editAd/${ad.id}`}>
-          <Button size={SizeButton.MEDIUM} theme={ThemeButton.OUTLINE}>Редактировать</Button>
+        <Link className={styles.EditLink} href={`/editAd/${ad.id}`}>
+          <Button size={SizeButton.MEDIUM} theme={ThemeButton.BACKGROUND}>Редактировать</Button>
         </Link>
         <Button size={SizeButton.MEDIUM} theme={ThemeButton.RED}>Удалить</Button>
       </div>

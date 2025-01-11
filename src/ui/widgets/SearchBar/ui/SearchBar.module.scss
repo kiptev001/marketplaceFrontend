@@ -1,45 +1,45 @@
 .searchbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  gap: 10px;
+  width: 100%;
+  padding: 0 114px;
+
+  .button {
+    height: 40px;
+    width: 165px;
+    border-radius: 6px;
+  }
+
+  .inputAndButton {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    height: 40px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
-    height: 90px;
-    gap: 10px;
     width: 100%;
-    padding: 0 114px;
+
+    .input {
+      width: 100%;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--bg-color);
+      height: 34px;
+      margin-left: 3px;
+    }
 
     .button {
-        height: 40px;
-        width: 165px;
-        border-radius: 6px;
+      height: 36px;
+      width: 84px;
     }
+  }
 
-    .inputAndButton {
-        background-color: var(--primary-color);
-        border-radius: 6px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-
-        .input {
-            width: 100%;
-            outline: none;
-            border: none;
-            border-radius: 4px;
-            background-color: var(--bg-color);
-            height: 34px;
-            margin-left: 3px;
-        }
-
-        .button {
-            height: 36px;
-            width: 84px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        gap: 5px;
-        padding: 0 15px;
-    }
+  @media (max-width: 768px) {
+    gap: 5px;
+    padding: 0 15px;
+  }
 }

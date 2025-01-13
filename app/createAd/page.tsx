@@ -14,6 +14,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAuth } from '@/src/ui/providers/AuthProvider';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { saveImages } from '@/src/helpers/saveImagesToImageServer';
 
 type Inputs = {
   title: string
@@ -48,7 +49,7 @@ function CreateAdPage() {
 
   const [images, setImages] = useState<Array<File>|null>(null);
   const onSubmit :SubmitHandler<Inputs> = async (values) => {
-    const imageUrls = await saveImages();
+    const imageUrls = await saveImages(images);
     const data: Ad = {
       title: values.title,
       price: parseInt(values.price, 10),
@@ -60,28 +61,6 @@ function CreateAdPage() {
     };
 
     createAd(data);
-  };
-
-  const saveImages = async () => {
-    const uploadFile = async (file: File):Promise<string> => {
-      const formdata = new FormData();
-      formdata.append('image', file);
-
-      const requestOptions = {
-        method: 'POST',
-        body: formdata,
-      };
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}/upload`, requestOptions);
-      const { url } = await response.json();
-      return url;
-    };
-
-    if(!images)return null;
-
-    const imageUrls = await Promise.all(images.map(file => uploadFile(file)));
-
-    return imageUrls;
   };
 
   const createAd = async (data: Ad) => {

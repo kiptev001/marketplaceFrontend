@@ -1,5 +1,5 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
 import { Input, SizeInput } from '../../shared/Input';
 import { Dropdown } from '../../shared/Dropdown';
 import { FileInput } from '../FileInput';
@@ -9,13 +9,17 @@ import { Button, SizeButton, ThemeButton } from '../../shared/Button';
 import { ContactTypes } from '@/src/ui/entities/Ad/types';
 import { Controller, useFieldArray } from 'react-hook-form';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import api from '@/src/http';
 import { Close } from '@mui/icons-material';
 import st from './EditAdForm.module.scss';
+import { saveImages } from '@/src/helpers/saveImagesToImageServer';
+import { toast } from 'react-toastify';
 
 const EditAdForm = ({ ad }:{ad:Ad}) => {
   const IMAGE_SERVER_URL='https://api.thaisell.net';
   const [images, setImages]=useState<File[] | null>([]);
   const [contacts, setContacts]=useState<Contact[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchImages() {
@@ -48,21 +52,37 @@ const EditAdForm = ({ ad }:{ad:Ad}) => {
 
   async function handleSubmit(data: FormData) {
     const formDataObject = Object.fromEntries(data.entries());
-    console.log(formDataObject);
-    console.log(contacts);
+    // Нужно сделать механизм, который сравнивает старые фото и новые фото
+    const oldImagesNames = ad?.images?.map(fileName=>fileName.slice(9));
+    const newImagesNames = images?.map(file=>file.name);
+    const filesToAdd = newImagesNames?.filter((fileName)=>{
+      return(!oldImagesNames?.includes(fileName));
+    });
+    const filesToDelete = oldImagesNames?.filter((fileName)=>{
+      return(!newImagesNames?.includes(fileName));
+    });
+    // пройтись по массивам запросами и удалить / добавить фотографии на сервер
+    
+    const AdData = {
+      id: ad?.id,
+      title: formDataObject?.title,
+      price: formDataObject?.price,
+      currency: formDataObject?.currency,
+      location: formDataObject?.location,
+      description: formDataObject?.description,
+      images: ad?.images,
+      contacts: contacts
+    };
 
-    // const AdData = {
-    //   id: ad?.id,
-    //   title: ad.title,
-    //   price: parseInt(ad?.price, 10),
-    //   currency: ad.currency,
-    //   location: ad.location,
-    //   description: ad.description,
-    //   images: [],
-    //   contacts: ad.contacts
-    // };
-
-    // const response = await api.post(`/ads/edit?id=${ad.id}`, AdData);
+    try {
+      const response = await api.post(`/ads/edit?id=${ad.id}`, AdData);
+      if(response.status === 200){
+        toast.success('Изменения сохранены',{ position: 'top-left' });
+        router.push('/myAds');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const addContact = () => {
